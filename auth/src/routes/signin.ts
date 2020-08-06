@@ -8,19 +8,18 @@ import('../strategies/google-auth');
 declare global {
   namespace Express {
     interface User {
-      _json?: any;
+      data?: any;
     }
   }
 }
 
 const router = express.Router();
 
-const generateJWT = (id: string, firstName: string, secondName: string) => {
+const generateJWT = (id: string, firstName: string) => {
   const userJwt = jwt.sign(
     {
       id: id,
       first_name: firstName,
-      last_name: secondName,
     },
     process.env.JWT_KEY!,
     { expiresIn: '1h' }
@@ -43,9 +42,8 @@ router.get(
     failureRedirect: '/api/users/fail',
   }),
   (req: Request, res: Response) => {
-    const { id, last_name, first_name } = req.user?._json;
-
-    const userJwt = generateJWT(id, first_name, last_name);
+    const { id, first_name } = req.user!.data;
+    const userJwt = generateJWT(id, first_name);
 
     req.session = {
       jwt: userJwt,
@@ -61,8 +59,9 @@ router.get(
     failureRedirect: '/api/users/fail',
   }),
   (req: Request, res: Response) => {
-    const { sub, given_name, family_name } = req.user?._json;
-    const userJwt = generateJWT(sub, given_name, family_name);
+    console.log(req.user);
+    const { id, first_name } = req.user!.data;
+    const userJwt = generateJWT(id, first_name);
 
     req.session = {
       jwt: userJwt,

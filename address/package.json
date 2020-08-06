@@ -1,0 +1,19 @@
+{
+  "name": "address",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@blackteam/commonlib": "^1.0.1",
+    "@types/express": "^4.17.7",
+    "express": "^4.17.1",
+    "ts-node-dev": "^1.0.0-pre.56",
+    "typescript": "^3.9.7"
+  }
+}

@@ -12,8 +12,7 @@ passport.use(
       callbackURL: process.env.GOOGLE_CALLBACK_URL!,
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
-      const { sub } = profile._json;
+      const { sub, name, picture } = profile._json;
       const existingUser = await User.findOne({ providerId: sub });
 
       if (!existingUser) {
@@ -24,7 +23,9 @@ passport.use(
         });
         await user.save();
       }
-      return done(null, profile);
+      return done(null, {
+        data: { id: sub, first_name: name, photo: picture },
+      });
     }
   )
 );

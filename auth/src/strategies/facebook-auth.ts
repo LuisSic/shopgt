@@ -17,10 +17,14 @@ passport.use(
       clientID: process.env.FACEBOOK_CLIENT_ID!,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
       callbackURL: process.env.FACEBOOK_CALLBACK_URL!,
-      profileFields: ['email', 'name'],
+      profileFields: ['picture.type(large)', 'name'],
     },
     async (accessToken, refreshToken, profile, done) => {
-      const { id } = profile._json;
+      const { id, last_name, first_name } = profile._json;
+      const photo = profile.photos
+        ? profile.photos[0].value
+        : 'poner foto default';
+
       const existingUser = await User.findOne({ providerId: id });
 
       if (!existingUser) {
@@ -30,8 +34,9 @@ passport.use(
           createDate: new Date().toISOString(),
         });
         await user.save();
+      } else {
       }
-      return done(null, profile);
+      return done(null, { data: { id, photo, first_name, last_name } });
     }
   )
 );
