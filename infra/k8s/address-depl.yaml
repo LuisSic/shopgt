@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: address-depl
+spec:
+  selector:
+    matchLabels:
+      app: address
+  template:
+    metadata:
+      labels:
+        app: address
+    spec:
+      containers:
+        - name: address
+          image: sluis117/address
+          env:
+            - name: MONGO_URL
+              value: 'mongodb://address-mongo-srv:27017/address'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: address-srv
+spec:
+  selector:
+    app: address
+  ports:
+    - name: address
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

@@ -13,3 +13,7 @@ spec:
             backend:
               serviceName: auth-srv
               servicePort: 3000
+          - path: /api/address/?(.*)
+            backend:
+              serviceName: address-srv
+              servicePort: 3000

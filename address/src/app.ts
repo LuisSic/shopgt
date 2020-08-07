@@ -1,12 +1,15 @@
 import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
-import passport from 'passport';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError } from '@blackteam/commonlib';
-import { siginRouter } from './routes/signin';
-
+import { newAddressRouter } from '../src/routes/new';
+import { deleteAddressRouter } from '../src/routes/delete';
+import { getAddressRouter } from '../src/routes/show';
+import { getAllAddressRouter } from '../src/routes/showall';
+import { updateAddressRouter } from '../src/routes/update';
 const app = express();
+
 app.use(json());
 app.set('trust proxy', true);
 app.use(
@@ -16,9 +19,11 @@ app.use(
   })
 );
 
-app.use(passport.initialize());
-
-app.use(siginRouter);
+app.use(newAddressRouter);
+app.use(deleteAddressRouter);
+app.use(getAddressRouter);
+app.use(getAllAddressRouter);
+app.use(updateAddressRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();
