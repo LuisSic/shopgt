@@ -14,6 +14,9 @@ let mongo: any;
 
 beforeAll(async () => {
   process.env.JWT_KEY = 'asdf';
+  process.env.BUCKET_NAME = '';
+  process.env.ACCESS_KEY_ID = '';
+  process.env.SECRET_ACCESS_KEY = '';
   //process.env.NODE_ENV = 'test';
 
   mongo = new MongoMemoryServer();

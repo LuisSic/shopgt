@@ -16,8 +16,10 @@ it('Fetch addresses of one user', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: 'asdfasdfdf',
-      lat: 'asdfsdf',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(201);
 

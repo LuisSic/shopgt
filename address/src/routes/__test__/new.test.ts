@@ -25,8 +25,10 @@ it('retuns an error if an invalid address is provided', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: '1234324',
-      lat: '12312323',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(400);
 
@@ -37,8 +39,10 @@ it('retuns an error if an invalid address is provided', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: '1234324',
-      lat: '12312323',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(400);
 });
@@ -51,8 +55,10 @@ it('retuns an error if an invalid twonship is provided', async () => {
       address: 'Guatemala',
       country: 'Guatemala',
       deparment: 'Guatemala',
-      long: '1234324',
-      lat: '12312323',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(400);
 
@@ -64,14 +70,16 @@ it('retuns an error if an invalid twonship is provided', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: '',
-      long: '1234324',
-      lat: '12312323',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(400);
 });
 
 it('retuns an error if an invalid long or lat are provided', async () => {
-  await request(app)
+  const response = await request(app)
     .post('/api/address')
     .set('Cookie', global.signin())
     .send({
@@ -79,8 +87,10 @@ it('retuns an error if an invalid long or lat are provided', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: '',
-      lat: '',
+      position: {
+        long: '',
+        lat: '',
+      },
     })
     .expect(400);
 
@@ -109,8 +119,10 @@ it('create valid addresses with valid inputs', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: '1231233123',
-      lat: '123123123',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(201);
 
@@ -122,8 +134,10 @@ it('create valid addresses with valid inputs', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: '123123123',
-      lat: '123123123',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(201);
 

@@ -16,8 +16,10 @@ it('Update address with valid inputs', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: '1234324',
-      lat: '12312323',
+      position: {
+        long: '1234324',
+        lat: '12312323',
+      },
     })
     .expect(201);
 
@@ -29,8 +31,10 @@ it('Update address with valid inputs', async () => {
       country: 'Guatemala',
       deparment: 'Quiche',
       township: 'San Pedro Jocopilas',
-      long: '111111',
-      lat: '12312323',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(200);
 
@@ -41,7 +45,7 @@ it('Update address with valid inputs', async () => {
     .expect(200);
 
   expect(fetchAddress.deparment).toEqual('Quiche');
-  expect(fetchAddress.long).toEqual('111111');
+  expect(fetchAddress.position.long).toEqual('111111');
 });
 
 it('return error if we provied id does not exist', async () => {
@@ -55,8 +59,10 @@ it('return error if we provied id does not exist', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: '1234324',
-      lat: '12312323',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(201);
 
@@ -68,8 +74,10 @@ it('return error if we provied id does not exist', async () => {
       country: 'Guatemala',
       deparment: 'Quiche',
       township: 'San Pedro Jocopilas',
-      long: '111111',
-      lat: '12312323',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(404);
 });

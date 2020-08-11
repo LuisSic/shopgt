@@ -6,8 +6,10 @@ interface AddressAttrs {
   country: string;
   deparment: string;
   township: string;
-  long: string;
-  lat: string;
+  position: {
+    long: string;
+    lat: string;
+  };
   status: boolean;
   userId: string;
 }
@@ -19,8 +21,10 @@ interface AddressDoc extends mongoose.Document {
   township: string;
   status: boolean;
   version: number;
-  long: string;
-  lat: string;
+  position: {
+    long: string;
+    lat: string;
+  };
   userId: string;
 }
 
@@ -50,13 +54,15 @@ const addressSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
-    long: {
-      type: String,
-      required: true,
-    },
-    lat: {
-      type: String,
-      required: true,
+    position: {
+      long: {
+        type: String,
+        required: true,
+      },
+      lat: {
+        type: String,
+        required: true,
+      },
     },
     userId: {
       type: String,

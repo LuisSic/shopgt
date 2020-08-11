@@ -18,8 +18,8 @@ route.put(
     body('country').not().isEmpty().withMessage('Country is required'),
     body('deparment').not().isEmpty().withMessage('Department is required'),
     body('township').not().isEmpty().withMessage('Township is required'),
-    body('long').not().isEmpty().withMessage('longitude is required'),
-    body('lat').not().isEmpty().withMessage('latitude is required'),
+    body('position.long').not().isEmpty().withMessage('longitude is required'),
+    body('position.lat').not().isEmpty().withMessage('latitude is required'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -38,8 +38,7 @@ route.put(
       country: req.body.country,
       deparment: req.body.deparment,
       township: req.body.township,
-      long: req.body.long,
-      lat: req.body.lat,
+      position: req.body.position,
     });
 
     await updateAdress.save();

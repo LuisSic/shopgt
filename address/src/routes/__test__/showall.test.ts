@@ -15,8 +15,10 @@ it('Fetch all addresses', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: '1234324',
-      lat: '12312323',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(201);
 
@@ -28,8 +30,10 @@ it('Fetch all addresses', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: '1234324',
-      lat: '12312323',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(201);
 
@@ -52,8 +56,10 @@ it('Fetch addresses without status false', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: '1234324',
-      lat: '12312323',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(201);
 
@@ -65,8 +71,10 @@ it('Fetch addresses without status false', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
-      long: '1234324',
-      lat: '12312323',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(201);
 

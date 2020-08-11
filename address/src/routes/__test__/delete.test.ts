@@ -19,8 +19,10 @@ it('Delete an address', async () => {
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'San Miguel Petapa',
-      long: 'sdfasasdfasd',
-      lat: 'afasdfsdfd',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(201);
 
@@ -43,8 +45,10 @@ it('return an error if an user try to delete an address that is not yours', asyn
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'San Miguel Petapa',
-      long: 'sdfasasdfasd',
-      lat: 'afasdfsdfd',
+      position: {
+        long: '111111',
+        lat: '12312323',
+      },
     })
     .expect(201);
 
