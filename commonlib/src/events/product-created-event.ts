@@ -1,7 +1,7 @@
 import { Subjects } from './subjects';
 
 export interface ProductCreatedEvent {
-  subject: Subjects.PaymentCreated;
+  subject: Subjects.ProductCreated;
   data: {
     id: string;
     name: string;
