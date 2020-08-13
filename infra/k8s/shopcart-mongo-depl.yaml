@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopcart-mongo-depl
+spec:
+  selector:
+    matchLabels:
+      app: mongo-shopcart
+  template:
+    metadata:
+      labels:
+        app: mongo-shopcart
+    spec:
+      containers:
+        - name: mongo-shopcart
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shopcart-mongo-srv
+spec:
+  selector:
+    app: mongo-shopcart
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

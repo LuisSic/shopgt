@@ -4,7 +4,6 @@ import {
   requireAuth,
   validateRequest,
   NotFoundError,
-  NotAuthorizedError,
 } from '@blackteam/commonlib';
 import { uploadToS3 } from '../services/uploads3';
 import { Product } from '../models/product';

@@ -12,7 +12,7 @@ export const errorHandler = (
   }
 
   console.error(err);
-  res.status(500).send({
+  res.status(400).send({
     errors: [{ message: 'something went wrong :c' }],
   });
 };
