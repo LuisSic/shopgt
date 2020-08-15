@@ -5,6 +5,7 @@ export interface OrderCancelledEvent {
   data: {
     userId: string;
     total: number;
+    shopCartId: String;
     id: string;
     version: number;
     status: OrderStatus;

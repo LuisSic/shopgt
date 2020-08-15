@@ -6,6 +6,7 @@ export interface OrderCreatedEvent {
   data: {
     userId: string;
     total: number;
+    shopCartId: String;
     id: string;
     version: number;
     status: OrderStatus;
