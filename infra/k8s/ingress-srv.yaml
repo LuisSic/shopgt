@@ -21,3 +21,7 @@ spec:
             backend:
               serviceName: product-srv
               servicePort: 3000
+          - path: /api/shopcart/?(.*)
+            backend:
+              serviceName: shopcart-srv
+              servicePort: 3000

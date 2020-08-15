@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@blackteam/commonlib": "^1.0.1",
+    "@blackteam/commonlib": "^1.0.4",
     "@types/cookie-session": "^2.0.41",
     "@types/express": "^4.17.7",
     "@types/jsonwebtoken": "^8.5.0",

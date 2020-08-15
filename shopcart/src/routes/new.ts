@@ -20,8 +20,8 @@ app.post(
   async (req: Request, res: Response) => {
     const { productId, quantity } = req.body;
     const { id: userId } = req.currentUser!;
-
     const productItem = await Product.findById(productId);
+    console.log(productItem);
     if (!productItem) {
       throw new NotFoundError();
     }

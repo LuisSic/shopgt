@@ -3,6 +3,9 @@ import { body } from 'express-validator';
 import { requireAuth, validateRequest } from '@blackteam/commonlib';
 import { Product } from '../models/product';
 import { uploadToS3 } from '../services/uploads3';
+import { natsWrapper } from '../nats-wrapper';
+import { ProductCreatedPublisher } from '../events/publishers/product-created-publisher';
+
 const router = express.Router();
 
 router.post(
@@ -37,6 +40,16 @@ router.post(
     });
 
     await newProduct.save();
+
+    new ProductCreatedPublisher(natsWrapper.client).publish({
+      id: newProduct.id,
+      name: newProduct.name,
+      keyimage: newProduct.keyimage,
+      imageUrl: newProduct.imageUrl,
+      version: newProduct.version,
+      price: newProduct.price,
+    });
+
     res.send(newProduct);
   }
 );

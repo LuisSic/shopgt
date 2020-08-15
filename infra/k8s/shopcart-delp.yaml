@@ -17,6 +17,14 @@ spec:
           env:
             - name: MONGO_URL
               value: 'mongodb://shopcart-mongo-srv:27017/shopcart'
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: shopGt
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
