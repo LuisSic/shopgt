@@ -3,10 +3,7 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError } from '@blackteam/commonlib';
-import { addShopCartRouter } from './routes/new';
-import { showShopCartRouter } from './routes/show';
-import { deleteItemShopCartRouter } from './routes/delete';
-
+import { createdChargeRouter } from '../src/routes/new';
 const app = express();
 
 app.use(json());
@@ -17,11 +14,7 @@ app.use(
     secure: false,
   })
 );
-
-app.use(addShopCartRouter);
-app.use(showShopCartRouter);
-app.use(deleteItemShopCartRouter);
-
+app.use(createdChargeRouter);
 app.all('*', async () => {
   throw new NotFoundError();
 });
