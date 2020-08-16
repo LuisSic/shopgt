@@ -41,7 +41,7 @@ it('create a new shoping-cart with valid inputs', async () => {
       productId: product.id,
       quantity: 2,
     })
-    .expect(200);
+    .expect(201);
 
   expect(shopcart.items.length).toEqual(1);
 });
@@ -61,7 +61,7 @@ it('add product to an existing shoping cart', async () => {
       productId: productOne.id,
       quantity: 2,
     })
-    .expect(200);
+    .expect(201);
 
   const { body: shopcart } = await request(app)
     .post('/api/shopcart')
@@ -70,7 +70,7 @@ it('add product to an existing shoping cart', async () => {
       productId: productTwo.id,
       quantity: 2,
     })
-    .expect(200);
+    .expect(201);
 
   expect(shopcart.items.length).toEqual(2);
 });
@@ -86,7 +86,7 @@ it('replace an item if exist in the shoping cart', async () => {
       productId: productOne.id,
       quantity: 2,
     })
-    .expect(200);
+    .expect(201);
 
   const { body: cart } = await request(app)
     .post('/api/shopcart')
@@ -95,7 +95,7 @@ it('replace an item if exist in the shoping cart', async () => {
       productId: productOne.id,
       quantity: 5,
     })
-    .expect(200);
+    .expect(201);
 
   expect(cart.items.length).toEqual(1);
   expect(cart.items[0].quantity).toEqual(5);
@@ -121,7 +121,7 @@ it('create a new shop cart if the previous cart has a order Id', async () => {
       productId: productOne.id,
       quantity: 2,
     })
-    .expect(200);
+    .expect(201);
 
   expect(newShopCart.id).not.toEqual(shopCart.id);
   expect(newShopCart.items[0].quantity).toEqual(2);

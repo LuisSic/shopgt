@@ -14,14 +14,17 @@ app.post(
   requireAuth,
   [
     body('productId').not().isEmpty().withMessage('productId must be defined'),
-    body('quantity').not().isEmpty().withMessage('quantity must be defined'),
+    body('quantity')
+      .isInt({ gt: 0 })
+      .withMessage('quantity must be greater than 0'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     const { productId, quantity } = req.body;
     const { id: userId } = req.currentUser!;
+    //const userId = '12345asdf';
     const productItem = await Product.findById(productId);
-    console.log(productItem);
+
     if (!productItem) {
       throw new NotFoundError();
     }
@@ -53,7 +56,7 @@ app.post(
       });
     }
     await userCart.save();
-    res.send(userCart);
+    res.status(201).send(userCart);
   }
 );
 

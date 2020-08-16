@@ -41,7 +41,7 @@ it('return the currently shoping cart', async () => {
       productId: product.id,
       quantity: 2,
     })
-    .expect(200);
+    .expect(201);
 
   const { body: shopingcart } = await request(app)
     .get('/api/shopcart')

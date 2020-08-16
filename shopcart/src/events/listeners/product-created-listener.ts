@@ -9,7 +9,7 @@ export class ProductCreatedListener extends Listener<ProductCreatedEvent> {
 
   async onMessage(data: ProductCreatedEvent['data'], msg: Message) {
     const { id, name, price, keyimage, imageUrl } = data;
-    console.log(id);
+
     const product = Product.build({
       id,
       name,

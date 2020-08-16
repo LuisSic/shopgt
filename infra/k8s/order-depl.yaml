@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-depl
+spec:
+  selector:
+    matchLabels:
+      app: order
+  template:
+    metadata:
+      labels:
+        app: order
+    spec:
+      containers:
+        - name: order
+          image: sluis117/order-shop
+          env:
+            - name: MONGO_URL
+              value: 'mongodb://order-mongo-srv:27017/order'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: shopGt
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-srv
+spec:
+  selector:
+    app: order
+  ports:
+    - name: order
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

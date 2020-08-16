@@ -40,3 +40,11 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: sluis117/order-shop
+      context: order
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .

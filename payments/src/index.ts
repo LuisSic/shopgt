@@ -1,9 +1,6 @@
 import mongoose from 'mongoose';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
-import { ProductCreatedListener } from '../src/events/listeners/product-created-listener';
-import { ProductUpdatedListenerEvent } from '../src/events/listeners/product-updated-listener';
-import { OrderCreatedListenerEvent } from '../src/events/listeners/order-created-listener';
 
 const start = async () => {
   if (!process.env.MONGO_URL) {
@@ -35,10 +32,6 @@ const start = async () => {
     });
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
-
-    new ProductCreatedListener(natsWrapper.client).listen();
-    new ProductUpdatedListenerEvent(natsWrapper.client).listen();
-    new OrderCreatedListenerEvent(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,

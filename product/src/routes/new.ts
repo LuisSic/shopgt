@@ -50,7 +50,7 @@ router.post(
       price: newProduct.price,
     });
 
-    res.send(newProduct);
+    res.status(201).send(newProduct);
   }
 );
 

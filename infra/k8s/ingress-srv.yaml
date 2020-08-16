@@ -25,3 +25,7 @@ spec:
             backend:
               serviceName: shopcart-srv
               servicePort: 3000
+          - path: /api/order/?(.*)
+            backend:
+              serviceName: order-srv
+              servicePort: 3000

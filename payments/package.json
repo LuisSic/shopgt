@@ -1,5 +1,5 @@
 {
-  "name": "shopcart",
+  "name": "payments",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -32,6 +32,7 @@
     "mongoose": "^5.9.28",
     "mongoose-update-if-current": "^1.4.0",
     "node-nats-streaming": "^0.3.2",
+    "stripe": "^8.86.0",
     "ts-node-dev": "^1.0.0-pre.56",
     "typescript": "^3.9.7"
   },

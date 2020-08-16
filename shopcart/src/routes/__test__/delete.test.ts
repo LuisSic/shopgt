@@ -43,7 +43,7 @@ it('return an error if you try to delete an item of a shoping cart that is not y
       productId: product.id,
       quantity: 2,
     })
-    .expect(200);
+    .expect(201);
 
   await request(app)
     .delete(`/api/shopcart/${shopcart.id}`)
@@ -66,7 +66,7 @@ it('return an error if you try to delete an item of a shoping cart that not exis
       productId: product.id,
       quantity: 2,
     })
-    .expect(200);
+    .expect(201);
 
   await request(app)
     .delete(`/api/shopcart/${shopcart.id}`)
@@ -88,7 +88,7 @@ it('delete a valid item of your shoping cart', async () => {
       productId: product.id,
       quantity: 2,
     })
-    .expect(200);
+    .expect(201);
 
   await request(app)
     .delete(`/api/shopcart/${shopcart.id}`)

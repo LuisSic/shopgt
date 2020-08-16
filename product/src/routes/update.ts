@@ -7,6 +7,8 @@ import {
 } from '@blackteam/commonlib';
 import { uploadToS3 } from '../services/uploads3';
 import { Product } from '../models/product';
+import { natsWrapper } from '../nats-wrapper';
+import { ProductUpdatedPublisher } from '../events/publishers/product-updated-publisher';
 
 const router = express.Router();
 
@@ -58,6 +60,15 @@ router.put(
       status: true,
     });
     await product.save();
+
+    new ProductUpdatedPublisher(natsWrapper.client).publish({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      keyimage: product.keyimage,
+      version: product.version,
+    });
 
     res.send(product);
   }

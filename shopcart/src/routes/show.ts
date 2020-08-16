@@ -6,7 +6,7 @@ const app = express.Router();
 
 app.get('/api/shopcart', requireAuth, async (req: Request, res: Response) => {
   const userCart = await ShopCart.findOne({
-    userId: req.currentUser!.id,
+    userId: req.currentUser!.id, //'12345asdf'
     orderId: '',
   }).populate('items.product');
 

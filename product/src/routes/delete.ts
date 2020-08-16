@@ -1,9 +1,5 @@
 import express, { Response, Request } from 'express';
-import {
-  NotFoundError,
-  NotAuthorizedError,
-  requireAuth,
-} from '@blackteam/commonlib';
+import { NotFoundError, requireAuth } from '@blackteam/commonlib';
 import { Product } from '../models/product';
 const router = express.Router();
 
