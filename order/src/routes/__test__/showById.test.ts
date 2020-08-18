@@ -22,6 +22,7 @@ it('get order by ID', async () => {
           lat: '12312323',
         },
       },
+      shopCartId: '21321445',
       shopCart: [{ product: 'Pulsera x', quantity: 20 }],
     })
     .expect(201);
@@ -41,6 +42,7 @@ it('get order by ID', async () => {
           lat: '12312323',
         },
       },
+      shopCartId: '21321445',
       shopCart: [{ product: 'Pulsera x', quantity: 20 }],
     })
     .expect(201);

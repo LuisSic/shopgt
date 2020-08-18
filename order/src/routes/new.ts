@@ -12,6 +12,7 @@ const app = express.Router();
 
 app.post(
   '/api/order',
+  requireAuth,
   [
     body('total')
       .isFloat({ gt: 0 })
@@ -51,13 +52,17 @@ app.post(
     body('shopCart.*.quantity')
       .isInt({ gt: 0 })
       .withMessage('quantity must be greater than 0'),
+    body('shopCartId')
+      .not()
+      .isEmpty()
+      .withMessage('you need to provide the shopCartId in the Order'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     const { total, homeAddress, shopCart, shopCartId } = req.body;
 
     const order = Order.build({
-      userId: '12345asdf', //req.currentUser!.id,
+      userId: req.currentUser!.id,
       total,
       homeAddress,
       shopCart,

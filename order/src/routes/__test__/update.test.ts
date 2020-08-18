@@ -23,6 +23,7 @@ it('Cancell an existing order', async () => {
           lat: '12312323',
         },
       },
+      shopCartId: '21321445',
       shopCart: [{ product: 'Pulsera x', quantity: 20 }],
     })
     .expect(201);

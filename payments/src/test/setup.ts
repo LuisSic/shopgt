@@ -11,6 +11,7 @@ declare global {
 }
 
 let mongo: any;
+jest.mock('../nats-wrapper.ts');
 process.env.STRIPE_KEY = '';
 
 beforeAll(async () => {

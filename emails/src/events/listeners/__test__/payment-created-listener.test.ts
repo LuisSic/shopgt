@@ -12,7 +12,7 @@ const setup = async () => {
     total: 10,
     orderId: '324234324',
     stripeId: 'asdfasdfasdf',
-    email: 'lantoni24@hotmail.com',
+    email: 'jose.sic96@gmail.com',
   };
   // create a fake message object
   // @ts-ignore

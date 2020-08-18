@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: email-depl
+spec:
+  selector:
+    matchLabels:
+      app: email
+  template:
+    metadata:
+      labels:
+        app: email
+    spec:
+      containers:
+        - name: email
+          image: sluis117/emails
+          env:
+            - name: SENGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sendgrid-secret
+                  key: SENGRID_API_KEY
+            - name: SENGRID_TEMPLATE
+              valueFrom:
+                secretKeyRef:
+                  name: sendgrid-secret
+                  key: SENGRID_TEMPLATE
+            - name: SENGRD_FROM
+              valueFrom:
+                secretKeyRef:
+                  name: sendgrid-secret
+                  key: SENGRD_FROM
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: shopGt

@@ -12,10 +12,14 @@ export class PaymentCreatedListener extends Listener<PaymentCreatedEvent> {
     const { email, total, orderId } = data;
     const smgEmail = {
       to: email,
-      from: 'noreplay@shopGT.com', // Use the email address or domain you verified above
-      subject: `order receipt`,
-      text: 'Thank you to shopping in our page',
-      html: `<strong>Your order is ${orderId} order total: ${total}</strong>`,
+      from: process.env.SENGRD_FROM!, // Use the email address or domain you verified above
+      templateId: process.env.SENGRID_TEMPLATE!,
+      dynamic_template_data: {
+        name: 'There',
+        orderId: orderId,
+        Total: total,
+        subject: 'Order receipt',
+      },
     };
 
     try {

@@ -21,6 +21,7 @@ it('return an error with invalid total in the order', async () => {
           lat: '12312323',
         },
       },
+      shopCartId: '21321445',
       shopCart: [
         {
           product: '23423sdfd',
@@ -38,6 +39,7 @@ it('return an error with invalid homeAddress in the order', async () => {
     .send({
       total: 20,
       homeAddress: {},
+      shopCartId: '21321445',
       shopCart: [
         {
           product: '23423sdfd',
@@ -64,6 +66,7 @@ it('return an error with invalid shopCart in the order', async () => {
           lat: '12312323',
         },
       },
+      shopCartId: '21321445',
       shopCart: [{ product: '', quantity: '' }],
     })
     .expect(400);
@@ -85,6 +88,7 @@ it('create an order with valid inputs', async () => {
           lat: '12312323',
         },
       },
+      shopCartId: '21321445',
       shopCart: [{ product: 'Pulsera x', quantity: 20 }],
     })
     .expect(201);
