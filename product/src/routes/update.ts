@@ -21,11 +21,14 @@ router.put(
     body('price')
       .isFloat({ gt: 0 })
       .withMessage('Price must be greater than 0'),
-    body('image').not().isEmpty().withMessage('image in base 64 is required'),
+    body('image')
+      .optional({ checkFalsy: true })
+      .isString()
+      .withMessage('image must be base64'),
     body('keyImage')
-      .not()
-      .isEmpty()
-      .withMessage('name of the image is required'),
+      .optional({ checkFalsy: true })
+      .isString()
+      .withMessage('Keyimage must be string'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -35,7 +38,7 @@ router.put(
       throw new NotFoundError();
     }
 
-    if (product.keyimage !== req.body.keyImage) {
+    if (req.body.image && req.body.keyImage) {
       const data = await uploadToS3({
         name: req.params.keyImage,
         data: req.params.image,
@@ -48,7 +51,6 @@ router.put(
         keyimage: data.key,
         status: true,
       });
-
       await product.save();
       res.send(product);
     }

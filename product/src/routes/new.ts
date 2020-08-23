@@ -17,7 +17,7 @@ router.post(
     body('price')
       .isFloat({ gt: 0 })
       .withMessage('Price must be greater than 0'),
-    body('image').not().isEmpty().withMessage('name is required'),
+    body('image').not().isEmpty().withMessage('Base64 image is required'),
     body('nameImage')
       .not()
       .isEmpty()

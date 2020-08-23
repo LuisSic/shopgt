@@ -13,13 +13,15 @@ declare global {
   }
 }
 
+const CLIENT_HOME_PAGE_URL = 'http://localhost:3000';
 const router = express.Router();
 
-const generateJWT = (id: string, firstName: string) => {
+const generateJWT = (id: string, firstName: string, photo: string) => {
   const userJwt = jwt.sign(
     {
       id: id,
-      first_name: firstName,
+      name: firstName,
+      photo,
     },
     process.env.JWT_KEY!,
     { expiresIn: '1h' }
@@ -39,39 +41,35 @@ router.get(
 router.get(
   '/api/users/facebook/callback',
   passport.authenticate('facebook', {
-    failureRedirect: '/api/users/fail',
+    failureRedirect: CLIENT_HOME_PAGE_URL,
   }),
   (req: Request, res: Response) => {
-    const { id, first_name } = req.user!.data;
-    const userJwt = generateJWT(id, first_name);
+    const { id, first_name, photo } = req.user!.data;
+    const userJwt = generateJWT(id, first_name, photo);
 
     req.session = {
       jwt: userJwt,
     };
 
-    res.status(201).send('Hello There Facebook');
+    res.redirect(CLIENT_HOME_PAGE_URL);
   }
 );
 
 router.get(
   '/api/users/google/callback',
   passport.authenticate('google', {
-    failureRedirect: '/api/users/fail',
+    failureRedirect: CLIENT_HOME_PAGE_URL,
   }),
   (req: Request, res: Response) => {
-    console.log(req.user);
-    const { id, first_name } = req.user!.data;
-    const userJwt = generateJWT(id, first_name);
+    const { id, first_name, photo } = req.user!.data;
+    const userJwt = generateJWT(id, first_name, photo);
 
     req.session = {
       jwt: userJwt,
     };
 
-    res.status(201).send('Hello There Google');
+    res.redirect(CLIENT_HOME_PAGE_URL);
   }
 );
-router.get('/api/users/fail', (req: Request, res: Response) => {
-  res.send('Failed attempt');
-});
 
 export { router as siginRouter };

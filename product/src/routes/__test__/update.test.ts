@@ -25,8 +25,8 @@ it('update a product with valid inputs', async () => {
       name: 'test version2',
       description: 'test',
       price: 400,
-      image: 'sdfasdf',
-      keyImage: 'test',
+      image: '',
+      keyImage: '',
     })
     .expect(200);
 
@@ -47,15 +47,14 @@ it('return an error with invalid inputs', async () => {
 
   await newProductOne.save();
 
-  await request(app)
+  const { body: product } = await request(app)
     .put(`/api/product/${newProductOne.id}`)
     .set('Cookie', global.signin())
     .send({
       name: 'test version2',
       description: 'test',
-      price: 400,
-      image: '',
-      keyImage: '',
+      price: 20,
+      image: 23,
     })
     .expect(400);
 });
