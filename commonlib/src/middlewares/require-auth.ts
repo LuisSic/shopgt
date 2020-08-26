@@ -22,6 +22,7 @@ export const requireAuth = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log(req.session.jwt);
   if (!req.session.jwt) {
     throw new NotAuthorizedError();
   }
@@ -32,6 +33,7 @@ export const requireAuth = (
       process.env.JWT_KEY!
     ) as UserPayload;
   } catch (error) {
+    console.log(error);
     throw new NotAuthorizedError();
   }
 
