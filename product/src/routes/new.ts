@@ -18,15 +18,15 @@ router.post(
       .isFloat({ gt: 0 })
       .withMessage('Price must be greater than 0'),
     body('image').not().isEmpty().withMessage('Base64 image is required'),
-    body('nameImage')
+    body('keyimage')
       .not()
       .isEmpty()
-      .withMessage('name of the image is required'),
+      .withMessage('keyImage of the image is required'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     const data = await uploadToS3({
-      name: req.body.nameImage,
+      name: req.body.keyimage,
       data: req.body.image,
     });
 

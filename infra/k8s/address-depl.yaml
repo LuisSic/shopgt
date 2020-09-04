@@ -17,6 +17,11 @@ spec:
           env:
             - name: MONGO_URL
               value: 'mongodb://address-mongo-srv:27017/address'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service

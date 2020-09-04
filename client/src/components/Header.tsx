@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/index';
-import { ThunkSignOut } from '../store/actions/user/thunk';
+import { thunkSignOut } from '../store/actions/user/thunk';
 import { Link } from 'react-router-dom';
 import {
   MDBNavbar,
@@ -37,7 +37,7 @@ const Header = () => {
   };
 
   const handleLogOutClick = () => {
-    dispatch(ThunkSignOut());
+    dispatch(thunkSignOut());
   };
 
   return (
@@ -74,7 +74,7 @@ const Header = () => {
                 <MDBNavLink to="#!">My Orders</MDBNavLink>
               </MDBNavItem>
               <MDBNavItem active>
-                <MDBNavLink to="#!">Addresses</MDBNavLink>
+                <Link to="/addresses/list">List Products</Link>
               </MDBNavItem>
               <MDBNavItem>
                 <MDBNavLink

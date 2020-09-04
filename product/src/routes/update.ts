@@ -25,10 +25,10 @@ router.put(
       .optional({ checkFalsy: true })
       .isString()
       .withMessage('image must be base64'),
-    body('keyImage')
+    body('keyimage')
       .optional({ checkFalsy: true })
       .isString()
-      .withMessage('Keyimage must be string'),
+      .withMessage('keyimage must be string'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -38,10 +38,10 @@ router.put(
       throw new NotFoundError();
     }
 
-    if (req.body.image && req.body.keyImage) {
+    if (req.body.image && req.body.keyimage) {
       const data = await uploadToS3({
-        name: req.params.keyImage,
-        data: req.params.image,
+        name: req.body.keyimage,
+        data: req.body.image,
       });
       product.set({
         name: req.body.name,
@@ -51,18 +51,15 @@ router.put(
         keyimage: data.key,
         status: true,
       });
-      await product.save();
-      res.send(product);
+    } else {
+      product.set({
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        status: true,
+      });
     }
-
-    product.set({
-      name: req.body.name,
-      description: req.body.description,
-      price: req.body.price,
-      status: true,
-    });
     await product.save();
-
     new ProductUpdatedPublisher(natsWrapper.client).publish({
       id: product.id,
       name: product.name,

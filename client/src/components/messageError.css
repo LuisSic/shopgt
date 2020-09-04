@@ -1,0 +1,8 @@
+.FieldError p {
+  color: #bf1650;
+}
+
+.FieldError p::before {
+  display: inline;
+  content: '⚠ ';
+}

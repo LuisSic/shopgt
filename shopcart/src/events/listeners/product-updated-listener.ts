@@ -9,7 +9,6 @@ export class ProductUpdatedListenerEvent extends Listener<ProductUpdatedEvent> {
 
   async onMessage(data: ProductUpdatedEvent['data'], msg: Message) {
     const { id, name, price, keyimage, imageUrl } = data;
-
     const product = await Product.findByEvent(data);
 
     if (!product) {
