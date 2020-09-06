@@ -74,7 +74,7 @@ const Header = () => {
                 <MDBNavLink to="#!">My Orders</MDBNavLink>
               </MDBNavItem>
               <MDBNavItem active>
-                <Link to="/addresses/list">List Products</Link>
+                <MDBNavLink to="/address/list">My address list</MDBNavLink>
               </MDBNavItem>
               <MDBNavItem>
                 <MDBNavLink

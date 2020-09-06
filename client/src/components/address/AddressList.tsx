@@ -14,7 +14,6 @@ import {
 } from 'mdbreact';
 import Modal from '../Modal';
 import { RootState } from '../../store';
-import { hideError } from '../../store/actions/error/actions';
 import {
   thunkFetchAddresses,
   thunkDeleteAddress,
@@ -22,10 +21,8 @@ import {
 import { AddressState } from '../../store/actions/address/types';
 
 const AddressList = () => {
-  const errorSelector = (state: RootState) => state.error;
   const addressSelector = (state: RootState) => state.address;
   const address = Object.values(useSelector(addressSelector));
-  const isError = useSelector(errorSelector);
   const dispatch = useDispatch();
   const [isOpenModalDelete, setOpenModalDelete] = useState(false);
   const [idAddress, setIdAddress] = useState('');
@@ -53,7 +50,7 @@ const AddressList = () => {
             <MDBCardText>{address.deparment}</MDBCardText>
             <MDBCardText>{address.township}</MDBCardText>
             <MDBCardText>{address.address}</MDBCardText>
-            <Link to={`/products/edit/${address.id}`}>
+            <Link to={`/address/edit/${address.id}`}>
               <MDBBtn color="primary">Edit</MDBBtn>
             </Link>
             <MDBBtn color="danger" onClick={() => openModalDelete(address.id)}>
@@ -75,8 +72,6 @@ const AddressList = () => {
     });
 
   const renderList = () => {
-    //const listAddress = Object.keys(address);
-
     let tempArrayProducts = _.chunk(address, 3);
     return tempArrayProducts.map((address, index) => {
       return (
@@ -104,17 +99,10 @@ const AddressList = () => {
     </>
   );
 
-  const errorModalFooter = (
-    <>
-      <MDBBtn color="danger" onClick={() => dispatch(hideError())}>
-        Close
-      </MDBBtn>
-    </>
-  );
   console.log(address);
   return (
     <MDBContainer>
-      <Link to={`/addresses/new`}>
+      <Link to={`/address/new`}>
         <MDBBtn color="primary">Create Address</MDBBtn>
       </Link>
       {renderList()}
@@ -126,14 +114,6 @@ const AddressList = () => {
         modalTitle="Are you sure?"
         bodyText={deleteModalBody}
         toggle={() => setOpenModalDelete(false)}
-      />
-      <Modal
-        isOpen={isError.isOpen}
-        modalStyle={'danger'}
-        modalButtons={errorModalFooter}
-        modalTitle={'Error'}
-        bodyText={isError.error}
-        toggle={() => dispatch(hideError())}
       />
     </MDBContainer>
   );

@@ -7,7 +7,7 @@ import shopgt from '../../apis/shopgt';
 import history from '../../history';
 import ProductForm from './ProductForm';
 import { ResponseDataProduct, RequestDataProduct } from './types';
-
+import Loader from '../Loader';
 interface ParamTypes {
   id: string;
 }
@@ -18,7 +18,7 @@ const ProductEdit = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await shopgt.get(`/api/product/${id}`);
+      const response = await shopgt.get(`/api/address/${id}`);
       setProduct(response.data);
     };
     fetchProducts();
@@ -55,7 +55,7 @@ const ProductEdit = () => {
       />
     </MDBContainer>
   ) : (
-    <div>Loading</div>
+    <Loader />
   );
 };
 

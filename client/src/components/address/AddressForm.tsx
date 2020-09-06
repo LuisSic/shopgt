@@ -1,11 +1,7 @@
 import React from 'react';
 import { MDBRow, MDBCol, MDBBtn } from 'mdbreact';
-import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { hideError } from '../../store/actions/error/actions';
-import { RootState } from '../../store';
 import { AddressFormData } from './types';
-import Modal from '../Modal';
 
 interface Props {
   defaultValues?: AddressFormData;
@@ -17,31 +13,9 @@ const AddressForm = ({ defaultValues, callback }: Props) => {
     defaultValues: defaultValues,
   });
 
-  const errorSelector = (state: RootState) => state.error;
-  const isError = useSelector(errorSelector);
-  const dispatch = useDispatch();
-
   const onSubmit = async (data: AddressFormData) => {
     callback(data);
   };
-
-  const renderBtnActions = (
-    <>
-      <MDBBtn color="danger" onClick={() => dispatch(hideError())}>
-        Close
-      </MDBBtn>
-    </>
-  );
-
-  const bodyText = (
-    <>
-      <ul>
-        {isError.error.map((err) => (
-          <li key={err.message}>{err.message}</li>
-        ))}
-      </ul>
-    </>
-  );
 
   return (
     <>
@@ -126,16 +100,6 @@ const AddressForm = ({ defaultValues, callback }: Props) => {
           Submit Form
         </MDBBtn>
       </form>
-      <Modal
-        isOpen={isError.isOpen}
-        modalStyle="danger"
-        bodyText={bodyText}
-        modalTitle="Error"
-        modalButtons={renderBtnActions}
-        toggle={() => {
-          dispatch(hideError());
-        }}
-      />
     </>
   );
 };

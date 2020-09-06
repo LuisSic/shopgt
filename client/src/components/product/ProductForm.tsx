@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import { useForm } from 'react-hook-form';
 import { FormDataProduct, RequestDataProduct } from './types';
-import { hideError } from '../../store/actions/error/actions';
-import { RootState } from '../../store';
-import Modal from '../Modal';
 
 interface Props {
   defaultValues?: FormDataProduct;
@@ -13,9 +9,6 @@ interface Props {
 }
 
 const ProductForm = ({ defaultValues, callback }: Props) => {
-  const errorSelector = (state: RootState) => state.error;
-  const isError = useSelector(errorSelector);
-  const dispatch = useDispatch();
   const [image, setImage] = useState('');
   const { register, handleSubmit, errors } = useForm<FormDataProduct>({
     defaultValues: defaultValues,
@@ -66,23 +59,6 @@ const ProductForm = ({ defaultValues, callback }: Props) => {
     });
   };
 
-  const renderBtnActions = (
-    <>
-      <MDBBtn color="danger" onClick={() => dispatch(hideError())}>
-        Close
-      </MDBBtn>
-    </>
-  );
-
-  const bodyText = (
-    <>
-      <ul>
-        {isError.error.map((err) => (
-          <li key={err.message}>{err.message}</li>
-        ))}
-      </ul>
-    </>
-  );
   return (
     <>
       <form
@@ -174,16 +150,6 @@ const ProductForm = ({ defaultValues, callback }: Props) => {
           Submit Form
         </MDBBtn>
       </form>
-      <Modal
-        isOpen={isError.isOpen}
-        modalStyle="danger"
-        bodyText={bodyText}
-        modalTitle="Error"
-        modalButtons={renderBtnActions}
-        toggle={() => {
-          dispatch(hideError());
-        }}
-      />
     </>
   );
 };

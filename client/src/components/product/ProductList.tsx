@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   MDBContainer,
@@ -15,13 +15,11 @@ import Card from './Card';
 import Modal from '../Modal';
 import shopgt from '../../apis/shopgt';
 import { ResponseDataProduct } from './types';
-import { RootState } from '../../store';
-import { setError, hideError } from '../../store/actions/error/actions';
+
+import { setError } from '../../store/actions/error/actions';
 import history from '../../history';
 
 const ProductList = () => {
-  const errorSelector = (state: RootState) => state.error;
-  const isError = useSelector(errorSelector);
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
   const [isOpenModalDelete, setOpenModalDelete] = useState(false);
@@ -125,13 +123,6 @@ const ProductList = () => {
     </>
   );
 
-  const errorModalFooter = (
-    <>
-      <MDBBtn color="danger" onClick={() => dispatch(hideError())}>
-        Close
-      </MDBBtn>
-    </>
-  );
   console.log('ProductList');
   return (
     <MDBContainer>
@@ -144,14 +135,6 @@ const ProductList = () => {
         modalTitle="Are you sure?"
         bodyText={deleteModalBody}
         toggle={() => setOpenModalDelete(false)}
-      />
-      <Modal
-        isOpen={isError.isOpen}
-        modalStyle={'danger'}
-        modalButtons={errorModalFooter}
-        modalTitle={'Error'}
-        bodyText={isError.error}
-        toggle={() => dispatch(hideError())}
       />
     </MDBContainer>
   );

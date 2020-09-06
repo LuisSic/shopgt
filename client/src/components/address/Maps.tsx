@@ -1,6 +1,6 @@
 import React from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
-
+import Loader from '../Loader';
 interface Position {
   lat: number;
   lng: number;
@@ -35,7 +35,11 @@ const Maps = ({ position, setPosition }: Props) => {
   });
 
   if (loadError) return <div>Error loading maps</div>;
-  if (!isLoaded) return <div>Loading maps</div>;
+  //if (!isLoaded) return <div>Loading maps</div>;
+
+  if (!isLoaded) {
+    return <Loader />;
+  }
 
   const onClickMarker = (e: google.maps.MouseEvent) => {
     setPosition({ lat: e.latLng.lat(), lng: e.latLng.lng() });
