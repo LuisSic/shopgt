@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import _ from 'lodash';
 import {
   MDBContainer,
@@ -9,9 +9,9 @@ import {
 } from 'mdbreact';
 import Card from '../components/product/Card';
 import { Link } from 'react-router-dom';
-import shopgt from '../apis/shopgt';
 import { ResponseDataProduct } from './product/types';
-
+import useRequest from '../hooks/user-request';
+import Loader from './Loader';
 const renderBody = (product: ResponseDataProduct) => {
   return (
     <>
@@ -44,15 +44,21 @@ const renderHome = (products: ResponseDataProduct[]) => {
 };
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
+  const { doRequest, resposeData: products } = useRequest<
+    ResponseDataProduct[]
+  >({
+    url: '/api/product',
+    method: 'get',
+  });
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await shopgt.get('/api/product');
-      setProducts(response.data);
-    };
-    fetchProducts();
-  }, []);
-  console.log('home');
+    doRequest();
+  }, [doRequest]);
+
+  if (!products) {
+    return <Loader />;
+  }
+
   return <MDBContainer>{renderHome(products)}</MDBContainer>;
 };
 

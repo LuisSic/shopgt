@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { MDBBtn } from 'mdbreact';
 import { thunkSignIn } from '../store/actions/user/thunk';
-import { thunkFetchAddresses } from '../store/actions/address/thunk';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import Header from '../components/Header';
@@ -22,7 +22,6 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(thunkSignIn());
-    dispatch(thunkFetchAddresses());
   }, [dispatch]);
 
   const errorSelector = (state: RootState) => state.error;

@@ -1,28 +1,23 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { MDBContainer } from 'mdbreact';
 import ProductForm from './ProductForm';
-import shopgt from '../../apis/shopgt';
-import { setError } from '../../store/actions/error/actions';
 import history from '../../history';
 import { RequestDataProduct } from './types';
+import useRequest from '../../hooks/user-request';
+import { ResponseDataProduct } from './types';
 
 const ProductCreate = () => {
-  const dispatch = useDispatch();
+  const onSuccess = () => history.push('/');
+  const { doRequest } = useRequest<ResponseDataProduct>(
+    {
+      url: '/api/product',
+      method: 'post',
+    },
+    onSuccess
+  );
+
   const onSubmit = async (product: RequestDataProduct) => {
-    try {
-      await shopgt.post('/api/product', product);
-      history.push('/');
-    } catch (err) {
-      if (err && err.response) {
-        dispatch(
-          setError({
-            error: err.response.data.errors,
-            isOpen: true,
-          })
-        );
-      }
-    }
+    await doRequest(product);
   };
 
   return (

@@ -66,7 +66,6 @@ const AddressEdit = () => {
       }
     );
   };
-  console.log(address);
 
   if (!address) {
     return <Loader />;

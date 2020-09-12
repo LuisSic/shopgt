@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import shopgt from '../../apis/shopgt';
 import { ResponseDataProduct } from './types';
-import { setError } from '../../store/actions/error/actions';
 import Loader from '../Loader';
 import { thunkAddItem } from '../../store/actions/shopCart/thunk';
 import Select from './Select';
+import useRequest from '../../hooks/user-request';
 
 interface ParamTypes {
   id: string;
@@ -16,30 +15,16 @@ interface ParamTypes {
 const ProductShow = () => {
   const dispatch = useDispatch();
   const { id } = useParams<ParamTypes>();
-  const [product, setProduct] = useState<ResponseDataProduct | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [loaded, setLoaded] = useState(false);
+  const { doRequest, resposeData: product } = useRequest<ResponseDataProduct>({
+    url: `/api/product/${id}`,
+    method: 'get',
+  });
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await shopgt.get<ResponseDataProduct>(
-          `/api/product/${id}`
-        );
-        setProduct(response.data);
-      } catch (err) {
-        if (err && err.response) {
-          dispatch(
-            setError({
-              error: err.response.data.errors,
-              isOpen: true,
-            })
-          );
-        }
-      }
-    };
-    fetchProduct();
-  }, [dispatch, id]);
+    doRequest();
+  }, [doRequest]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setQuantity(parseInt(e.target.value));
@@ -53,6 +38,8 @@ const ProductShow = () => {
       })
     );
   };
+
+  console.log(product);
 
   if (!product) {
     return <Loader />;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/index';
 import { thunkSignOut } from '../store/actions/user/thunk';
@@ -22,6 +22,7 @@ import {
   FacebookLoginButton,
   GoogleLoginButton,
 } from 'react-social-login-buttons';
+import { thunkFetchAddresses } from '../store/actions/address/thunk';
 
 const handleSignInClickF = () => {
   // Authenticate using via passport api in the backend
@@ -55,6 +56,12 @@ const Header = () => {
 
   const [collapseID, setCollapseID] = useState('');
   const [login, setLogin] = useState(false);
+
+  useEffect(() => {
+    if (auth.isSignedIn) {
+      dispatch(thunkFetchAddresses());
+    }
+  }, [auth.isSignedIn, dispatch]);
 
   const toggleCollapse = (newCollapseID: string) => {
     setCollapseID(collapseID !== newCollapseID ? newCollapseID : '');

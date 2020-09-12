@@ -107,6 +107,10 @@ const ShopCartList = () => {
     );
   });
 
+  const handleOnclickOrder = () => {
+    console.log('hola');
+  };
+
   return (
     <MDBContainer>
       <h2>Shopping-Cart</h2>
@@ -128,7 +132,9 @@ const ShopCartList = () => {
             <span>Select Address</span>
           </p>
           <div>{addressList}</div>
-          {total > 0 && <MDBBtn>Make Order</MDBBtn>}
+          {total > 0 && (
+            <MDBBtn onClick={handleOnclickOrder}>Make Order</MDBBtn>
+          )}
         </MDBCol>
       </MDBRow>
     </MDBContainer>

@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   MDBContainer,
@@ -13,51 +12,36 @@ import {
 } from 'mdbreact';
 import Card from './Card';
 import Modal from '../Modal';
-import shopgt from '../../apis/shopgt';
 import { ResponseDataProduct } from './types';
 
-import { setError } from '../../store/actions/error/actions';
 import history from '../../history';
+import useRequest from '../../hooks/user-request';
 
 const ProductList = () => {
-  const dispatch = useDispatch();
-  const [products, setProducts] = useState([]);
   const [isOpenModalDelete, setOpenModalDelete] = useState(false);
   const [idProduct, setIdProduct] = useState('');
 
+  const { doRequest: doRequestGet, resposeData: data } = useRequest<
+    ResponseDataProduct[]
+  >({
+    url: '/api/product',
+    method: 'get',
+  });
+  const onSuccess = () => history.push('/');
+  const { doRequest: doRequestDelete } = useRequest<ResponseDataProduct[]>(
+    {
+      url: `/api/product/${idProduct}`,
+      method: 'delete',
+    },
+    onSuccess
+  );
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await shopgt.get('/api/product');
-        setProducts(response.data);
-      } catch (err) {
-        if (err && err.response) {
-          dispatch(
-            setError({
-              error: err.response.data.errors,
-              isOpen: true,
-            })
-          );
-        }
-      }
-    };
-    fetchProducts();
-  }, [dispatch]);
+    doRequestGet();
+  }, [doRequestGet]);
 
   const fetchDeleteProduct = async () => {
-    try {
-      await shopgt.delete(`/api/product/${idProduct}`);
-      history.push('/');
-    } catch (err) {
-      if (err && err.response) {
-        dispatch(
-          setError({
-            error: err.response.data.errors,
-            isOpen: true,
-          })
-        );
-      }
-    }
+    doRequestDelete();
   };
 
   const openModalDelete = (id: string) => {
@@ -76,7 +60,7 @@ const ProductList = () => {
         <MDBCardTitle tag="h5">{produc.name}</MDBCardTitle>
         <MDBCardText>{produc.description}</MDBCardText>
         <MDBCardText>{`Price ${produc.price}`}</MDBCardText>
-        <Link to={`/products/view/${produc.id}`}>
+        <Link to={`/products/edit/${produc.id}`}>
           <MDBBtn color="primary">Edit</MDBBtn>
         </Link>
         <MDBBtn color="danger" onClick={() => openModalDelete(produc.id)}>
@@ -96,7 +80,7 @@ const ProductList = () => {
     });
 
   const renderList = () => {
-    let tempArrayProducts = _.chunk(products, 3);
+    let tempArrayProducts = _.chunk(data, 3);
     return tempArrayProducts.map((product, index) => {
       return (
         <MDBRow style={{ padding: '25px 25px 25px 25px' }} key={index}>
@@ -123,14 +107,13 @@ const ProductList = () => {
     </>
   );
 
-  console.log('ProductList');
   return (
     <MDBContainer>
       {renderList()}
 
       <Modal
         isOpen={isOpenModalDelete}
-        modalStyle={'warning'}
+        modalStyle={'danger'}
         modalButtons={deleteModalFooter}
         modalTitle="Are you sure?"
         bodyText={deleteModalBody}

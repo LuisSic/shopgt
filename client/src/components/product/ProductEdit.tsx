@@ -1,43 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { MDBContainer } from 'mdbreact';
-import { setError } from '../../store/actions/error/actions';
-import shopgt from '../../apis/shopgt';
 import history from '../../history';
 import ProductForm from './ProductForm';
 import { ResponseDataProduct, RequestDataProduct } from './types';
 import Loader from '../Loader';
+import useRequest from '../../hooks/user-request';
 interface ParamTypes {
   id: string;
 }
 const ProductEdit = () => {
   const { id } = useParams<ParamTypes>();
-  const dispatch = useDispatch();
-  const [product, setProduct] = useState<ResponseDataProduct | null>(null);
+
+  const { doRequest: doRequestGet, resposeData: product } = useRequest<
+    ResponseDataProduct
+  >({
+    url: `/api/product/${id}`,
+    method: 'get',
+  });
+
+  const onSuccess = () => history.push('/');
+  const { doRequest: doRequestPut } = useRequest<ResponseDataProduct>(
+    {
+      url: `/api/product/${id}`,
+      method: 'put',
+    },
+    onSuccess
+  );
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await shopgt.get(`/api/address/${id}`);
-      setProduct(response.data);
-    };
-    fetchProducts();
-  }, [id]);
+    doRequestGet();
+  }, [doRequestGet]);
 
   const onSubmit = async (product: RequestDataProduct) => {
-    try {
-      await shopgt.put(`/api/product/${id}`, product);
-      history.push('/');
-    } catch (err) {
-      if (err && err.response) {
-        dispatch(
-          setError({
-            error: err.response.data.errors,
-            isOpen: true,
-          })
-        );
-      }
-    }
+    doRequestPut(product);
   };
 
   return product ? (
