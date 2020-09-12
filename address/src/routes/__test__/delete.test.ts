@@ -15,6 +15,7 @@ it('Delete an address', async () => {
     .post('/api/address')
     .set('Cookie', user)
     .send({
+      name: 'Mi casa',
       address: 'Loa Alamos',
       country: 'Guatemala',
       deparment: 'Guatemala',
@@ -41,6 +42,7 @@ it('return an error if an user try to delete an address that is not yours', asyn
     .post('/api/address')
     .set('Cookie', global.signin())
     .send({
+      name: 'Mi casa',
       address: 'Loa Alamos',
       country: 'Guatemala',
       deparment: 'Guatemala',

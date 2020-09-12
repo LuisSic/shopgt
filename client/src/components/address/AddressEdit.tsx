@@ -35,6 +35,7 @@ const AddressEdit = () => {
     dispatch(
       thunkEditAddress(
         {
+          name: data.name,
           address: data.address,
           country: data.country,
           township: data.township,

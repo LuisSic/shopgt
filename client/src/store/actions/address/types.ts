@@ -4,10 +4,12 @@ export enum Address {
   FETCH_ADDRESS = 'FETCH_ADDRESS',
   DELETE_ADDRESS = 'DELETE_ADDRESS',
   EDIT_ADDRESS = 'EDIT_ADDRESS',
+  SELECT_ADDRESS = 'SELECT_ADDRESS',
 }
 
 export interface AddressState {
   id: string;
+  name: string;
   address: string;
   country: string;
   deparment: string;
@@ -22,6 +24,7 @@ export interface AddressState {
 }
 
 export interface AddressRequest {
+  name: string;
   address: string;
   country: string;
   deparment: string;

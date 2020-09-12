@@ -11,6 +11,7 @@ it('Fetch all addresses', async () => {
     .post('/api/address')
     .set('Cookie', user)
     .send({
+      name: 'Mi casa',
       address: 'Guatemala',
       country: 'Guatemala',
       deparment: 'Guatemala',
@@ -26,6 +27,7 @@ it('Fetch all addresses', async () => {
     .post('/api/address')
     .set('Cookie', user)
     .send({
+      name: 'Mi casa',
       address: 'Guatemala',
       country: 'Guatemala',
       deparment: 'Guatemala',
@@ -52,6 +54,7 @@ it('Fetch addresses without status false', async () => {
     .post('/api/address')
     .set('Cookie', user)
     .send({
+      name: 'Mi casa',
       address: 'Guatemala',
       country: 'Guatemala',
       deparment: 'Guatemala',
@@ -67,6 +70,7 @@ it('Fetch addresses without status false', async () => {
     .post('/api/address')
     .set('Cookie', user)
     .send({
+      name: 'Mi Trabajo',
       address: 'Guatemala',
       country: 'Guatemala',
       deparment: 'Guatemala',

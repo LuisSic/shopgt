@@ -11,10 +11,11 @@ const Card = ({ children, image }: Props) => {
     <MDBCard>
       <MDBView hover zoom>
         <MDBCardImage
-          src={image}
           alt="MDBCard image cap"
           top
           overlay="white-slight"
+          src={image}
+          cascade
         />
       </MDBView>
       <MDBCardBody>{children}</MDBCardBody>

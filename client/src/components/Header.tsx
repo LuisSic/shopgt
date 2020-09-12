@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/index';
 import { thunkSignOut } from '../store/actions/user/thunk';
 import { Link } from 'react-router-dom';
+import Modal from './Modal';
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -16,24 +17,47 @@ import {
   MDBDropdownMenu,
   MDBDropdownItem,
   MDBIcon,
-  MDBBtn,
 } from 'mdbreact';
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+} from 'react-social-login-buttons';
+
+const handleSignInClickF = () => {
+  // Authenticate using via passport api in the backend
+  // Open Facebook login page
+  window.open('http://localhost:80/api/users/facebook', '_self');
+};
+
+const renderBtnLogin = (
+  <>
+    <FacebookLoginButton onClick={handleSignInClickF}>
+      <span>Facebook</span>
+    </FacebookLoginButton>
+    <GoogleLoginButton onClick={handleSignInClickF}>
+      <span>Google</span>
+    </GoogleLoginButton>
+  </>
+);
+
+const modalFooter = (
+  <>
+    <strong className="black-text">ShopGT</strong>
+  </>
+);
 
 const Header = () => {
   const selectAuth = (state: RootState) => state.auth;
+  const selectShopCart = (state: RootState) => state.shoppingCart;
+  const shopCart = useSelector(selectShopCart);
   const auth = useSelector(selectAuth);
   const dispatch = useDispatch();
 
   const [collapseID, setCollapseID] = useState('');
+  const [login, setLogin] = useState(false);
 
   const toggleCollapse = (newCollapseID: string) => {
     setCollapseID(collapseID !== newCollapseID ? newCollapseID : '');
-  };
-
-  const handleSignInClick = () => {
-    // Authenticate using via passport api in the backend
-    // Open Facebook login page
-    window.open('http://localhost:80/api/users/facebook', '_self');
   };
 
   const handleLogOutClick = () => {
@@ -62,7 +86,7 @@ const Header = () => {
                   <Link to="/products/new">Create</Link>
                 </MDBDropdownItem>
                 <MDBDropdownItem>
-                  <Link to="/products/list">List Products</Link>
+                  <Link to="/products/list">Product Book</Link>
                 </MDBDropdownItem>
               </MDBDropdownMenu>
             </MDBDropdown>
@@ -71,17 +95,17 @@ const Header = () => {
           {auth.isSignedIn ? (
             <>
               <MDBNavItem active>
-                <MDBNavLink to="#!">My Orders</MDBNavLink>
+                <MDBNavLink to="#!">Order History</MDBNavLink>
               </MDBNavItem>
               <MDBNavItem active>
-                <MDBNavLink to="/address/list">My address list</MDBNavLink>
+                <MDBNavLink to="/address/list">Address Book</MDBNavLink>
               </MDBNavItem>
               <MDBNavItem>
                 <MDBNavLink
                   className="waves-effect waves-light d-flex align-items-center"
-                  to="#!"
+                  to="/shopcart"
                 >
-                  1
+                  {Object.keys(shopCart.items).length}
                   <MDBIcon icon="shopping-cart" className="ml-1" />
                 </MDBNavLink>
               </MDBNavItem>
@@ -96,9 +120,6 @@ const Header = () => {
                     />
                   </MDBDropdownToggle>
                   <MDBDropdownMenu className="dropdown-default" right>
-                    <MDBDropdownItem header>Hello! {auth.name}</MDBDropdownItem>
-                    <MDBDropdownItem>Addresses</MDBDropdownItem>
-                    <MDBDropdownItem>Orders</MDBDropdownItem>
                     <MDBDropdownItem onClick={handleLogOutClick}>
                       Log out
                     </MDBDropdownItem>
@@ -114,27 +135,26 @@ const Header = () => {
           ) : (
             <MDBNavItem>
               <MDBDropdown>
-                <MDBDropdownToggle className="dopdown-toggle" nav>
+                <MDBDropdownToggle
+                  className="dopdown-toggle"
+                  nav
+                  onClick={() => setLogin(true)}
+                >
                   Login
                 </MDBDropdownToggle>
-                <MDBDropdownMenu className="dropdown-default" right>
-                  <MDBBtn
-                    color="primary"
-                    size="lg"
-                    style={{ width: '93%' }}
-                    onClick={handleSignInClick}
-                  >
-                    Facebook
-                  </MDBBtn>
-                  <MDBBtn color="danger" size="lg" style={{ width: '93%' }}>
-                    Google
-                  </MDBBtn>
-                </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>
           )}
         </MDBNavbarNav>
       </MDBCollapse>
+      <Modal
+        isOpen={login}
+        modalStyle={'info'}
+        bodyText={renderBtnLogin}
+        modalTitle={'Sign In'}
+        modalButtons={modalFooter}
+        toggle={() => setLogin(false)}
+      />
     </MDBNavbar>
   );
 };

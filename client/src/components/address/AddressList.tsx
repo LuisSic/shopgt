@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
@@ -11,13 +11,11 @@ import {
   MDBIcon,
   MDBCard,
   MDBCardBody,
+  MDBCardTitle,
 } from 'mdbreact';
 import Modal from '../Modal';
 import { RootState } from '../../store';
-import {
-  thunkFetchAddresses,
-  thunkDeleteAddress,
-} from '../../store/actions/address/thunk';
+import { thunkDeleteAddress } from '../../store/actions/address/thunk';
 import { AddressState } from '../../store/actions/address/types';
 
 const AddressList = () => {
@@ -26,11 +24,11 @@ const AddressList = () => {
   const dispatch = useDispatch();
   const [isOpenModalDelete, setOpenModalDelete] = useState(false);
   const [idAddress, setIdAddress] = useState('');
-
+  /*
   useEffect(() => {
     dispatch(thunkFetchAddresses());
   }, [dispatch]);
-
+*/
   const openModalDelete = (id: string) => {
     setOpenModalDelete(true);
     setIdAddress(id);
@@ -46,6 +44,7 @@ const AddressList = () => {
       <>
         <MDBCard style={{ width: '22rem' }}>
           <MDBCardBody>
+            <MDBCardTitle>{address.name}</MDBCardTitle>
             <MDBCardText>{address.country}</MDBCardText>
             <MDBCardText>{address.deparment}</MDBCardText>
             <MDBCardText>{address.township}</MDBCardText>
@@ -99,7 +98,6 @@ const AddressList = () => {
     </>
   );
 
-  console.log(address);
   return (
     <MDBContainer>
       <Link to={`/address/new`}>

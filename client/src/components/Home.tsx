@@ -15,7 +15,7 @@ import { ResponseDataProduct } from './product/types';
 const renderBody = (product: ResponseDataProduct) => {
   return (
     <>
-      <Link to={`/product/view/${product.id}`}>
+      <Link to={`/products/view/${product.id}`}>
         <MDBCardTitle tag="h5">{product.name}</MDBCardTitle>
       </Link>
       <MDBCardText>{`Price ${product.price}`}</MDBCardText>

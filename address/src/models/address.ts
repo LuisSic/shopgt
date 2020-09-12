@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface AddressAttrs {
+  name: string;
   address: string;
   country: string;
   deparment: string;
@@ -15,6 +16,7 @@ interface AddressAttrs {
 }
 
 interface AddressDoc extends mongoose.Document {
+  name: string;
   address: string;
   country: string;
   deparment: string;
@@ -34,6 +36,10 @@ interface AddressModel extends mongoose.Model<AddressDoc> {
 
 const addressSchema = new mongoose.Schema(
   {
+    name: {
+      type: String,
+      required: true,
+    },
     address: {
       type: String,
       required: true,

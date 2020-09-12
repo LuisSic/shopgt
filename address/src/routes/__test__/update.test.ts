@@ -12,6 +12,7 @@ it('Update address with valid inputs', async () => {
     .post('/api/address')
     .set('Cookie', user)
     .send({
+      name: 'Mi casa',
       address: 'Guatemala',
       country: 'Guatemala',
       deparment: 'Guatemala',
@@ -55,6 +56,7 @@ it('return error if we provied id does not exist', async () => {
     .post('/api/address')
     .set('Cookie', user)
     .send({
+      name: 'Mi casa',
       address: 'Guatemala',
       country: 'Guatemala',
       deparment: 'Guatemala',

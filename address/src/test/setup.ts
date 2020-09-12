@@ -44,6 +44,7 @@ global.signin = (id?: string) => {
   const payload = {
     id: id || new mongoose.Types.ObjectId().toHexString(),
     name: 'sluis117',
+    photo: 'test',
   };
   // Create the JWT
   const token = jwt.sign(payload, process.env.JWT_KEY!);

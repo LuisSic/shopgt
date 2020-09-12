@@ -1,4 +1,5 @@
 import { Action } from 'redux';
+import { isEmpty } from 'lodash';
 import { RootState } from '../../';
 import { ThunkAction } from 'redux-thunk';
 import shopgt from '../../../apis/shopgt';
@@ -12,7 +13,7 @@ import {
 import { setError } from '../error/actions';
 import { AddressRequest, AddressState } from './types';
 import history from '../../../history';
-import { isEmpty } from 'lodash';
+
 type AppThunk<ReturnType = void> = ThunkAction<
   void,
   RootState,

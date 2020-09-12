@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { MDBBtn } from 'mdbreact';
 import { thunkSignIn } from '../store/actions/user/thunk';
+import { thunkFetchAddresses } from '../store/actions/address/thunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import Header from '../components/Header';
@@ -14,12 +15,14 @@ import AddressEdit from './address/AddressEdit';
 import history from '../history';
 import AddressList from '../components/address/AddressList';
 import Modal from './Modal';
+import ShopCartList from './shopcart/ShopCartList';
 import { hideError } from '../store/actions/error/actions';
 import { RootState } from '../store';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(thunkSignIn());
+    dispatch(thunkFetchAddresses());
   }, [dispatch]);
 
   const errorSelector = (state: RootState) => state.error;
@@ -54,6 +57,7 @@ const App = () => {
         <Route exact path="/address/new" component={Address} />
         <Route exact path="/address/list" component={AddressList} />
         <Route exact path="/address/edit/:id" component={AddressEdit} />
+        <Route exact path="/shopcart" component={ShopCartList} />
         <Route path="/" component={Home} />
       </Switch>
       <Modal

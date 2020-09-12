@@ -21,6 +21,26 @@ const AddressForm = ({ defaultValues, callback }: Props) => {
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="FieldError">
         <MDBRow>
+          <MDBCol sm="6">
+            <label
+              htmlFor="defaultFormRegisterConfirmEx3"
+              className="grey-text"
+            >
+              Name
+            </label>
+
+            <input
+              type="text"
+              id="defaultFormRegisterConfirmEx3"
+              className="form-control"
+              name="name"
+              placeholder="Name of address"
+              ref={register({ required: true })}
+            />
+            {errors.name && <p>Name input is required</p>}
+          </MDBCol>
+        </MDBRow>
+        <MDBRow>
           <MDBCol>
             <label
               htmlFor="defaultFormRegisterConfirmEx3"

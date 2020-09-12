@@ -17,9 +17,9 @@ const Address = () => {
   const [position, setPosition] = useState<Position | null>(null);
 
   const onSubmit = (data: AddressFormData) => {
-    console.log(data);
     dispatch(
       thunkCreateAddress({
+        name: data.name,
         address: data.address,
         country: data.country,
         township: data.township,

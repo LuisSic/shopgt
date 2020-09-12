@@ -10,16 +10,16 @@ import { ShopCart } from '../models/shopcar';
 const app = express.Router();
 
 app.delete(
-  '/api/shopcart/:shopcartId',
+  '/api/shopcart/:productId',
   requireAuth,
-  [body('productId').not().isEmpty().withMessage('productId must be defined')],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { productId } = req.body;
+    const { productId } = req.params;
 
-    let userCart = await ShopCart.findById(req.params.shopcartId).populate(
-      'items.product'
-    );
+    const userCart = await ShopCart.findOne({
+      userId: req.currentUser!.id, //'12345asdf'
+      orderId: '',
+    }).populate('items.product');
 
     if (!userCart) {
       throw new NotFoundError();

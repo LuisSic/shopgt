@@ -10,7 +10,7 @@ interface Props {
   isOpen: boolean;
   modalStyle: 'success' | 'info' | 'danger' | 'warning';
   bodyText: React.ReactNode;
-  modalButtons: React.ReactNode;
+  modalButtons?: React.ReactNode;
   modalTitle: string;
   toggle: () => void;
 }

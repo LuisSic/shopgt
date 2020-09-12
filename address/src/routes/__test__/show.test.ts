@@ -12,6 +12,7 @@ it('Fetch addresses of one user', async () => {
     .post('/api/address')
     .set('Cookie', user)
     .send({
+      name: 'Mi casa',
       address: 'Guatemala',
       country: 'Guatemala',
       deparment: 'Guatemala',

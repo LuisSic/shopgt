@@ -9,6 +9,7 @@ route.post(
   '/api/address',
   requireAuth,
   [
+    body('name').not().isEmpty().withMessage('name of address is required'),
     body('address').not().isEmpty().withMessage('Address is required'),
     body('country').not().isEmpty().withMessage('Country is required'),
     body('deparment').not().isEmpty().withMessage('Department is required'),
@@ -19,9 +20,10 @@ route.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { address, country, deparment, township, position } = req.body;
+    const { address, country, deparment, township, position, name } = req.body;
 
     const newAddress = Address.build({
+      name,
       address,
       country,
       deparment,

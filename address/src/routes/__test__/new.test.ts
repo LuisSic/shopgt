@@ -21,6 +21,7 @@ it('retuns an error if an invalid address is provided', async () => {
     .post('/api/address')
     .set('Cookie', global.signin())
     .send({
+      name: 'Mi casa',
       address: '',
       country: 'Guatemala',
       deparment: 'Guatemala',
@@ -36,6 +37,7 @@ it('retuns an error if an invalid address is provided', async () => {
     .post('/api/address')
     .set('Cookie', global.signin())
     .send({
+      name: 'Mi casa',
       country: 'Guatemala',
       deparment: 'Guatemala',
       township: 'Guatemala',
@@ -52,6 +54,7 @@ it('retuns an error if an invalid twonship is provided', async () => {
     .post('/api/address')
     .set('Cookie', global.signin())
     .send({
+      name: 'Mi casa',
       address: 'Guatemala',
       country: 'Guatemala',
       deparment: 'Guatemala',
@@ -66,6 +69,7 @@ it('retuns an error if an invalid twonship is provided', async () => {
     .post('/api/address')
     .set('Cookie', global.signin())
     .send({
+      name: 'Mi casa',
       address: 'asdfdsf',
       country: 'Guatemala',
       deparment: 'Guatemala',
@@ -115,6 +119,7 @@ it('create valid addresses with valid inputs', async () => {
     .post('/api/address')
     .set('Cookie', global.signin(id))
     .send({
+      name: 'Mi casa',
       address: 'Guatemala',
       country: 'Guatemala',
       deparment: 'Guatemala',
@@ -130,6 +135,7 @@ it('create valid addresses with valid inputs', async () => {
     .post('/api/address')
     .set('Cookie', global.signin(id))
     .send({
+      name: 'Mi casa',
       address: 'Guatemala',
       country: 'Guatemala',
       deparment: 'Guatemala',

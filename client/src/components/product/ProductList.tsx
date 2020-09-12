@@ -76,7 +76,7 @@ const ProductList = () => {
         <MDBCardTitle tag="h5">{produc.name}</MDBCardTitle>
         <MDBCardText>{produc.description}</MDBCardText>
         <MDBCardText>{`Price ${produc.price}`}</MDBCardText>
-        <Link to={`/products/edit/${produc.id}`}>
+        <Link to={`/products/view/${produc.id}`}>
           <MDBBtn color="primary">Edit</MDBBtn>
         </Link>
         <MDBBtn color="danger" onClick={() => openModalDelete(produc.id)}>
