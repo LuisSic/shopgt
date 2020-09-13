@@ -1,4 +1,4 @@
-export enum Address {
+export enum AddressTypes {
   CREATE_ADDRESS = 'CREATE_ADDRESS',
   FETCH_ADDRESSES = 'FETCH_ADDRESSES',
   FETCH_ADDRESS = 'FETCH_ADDRESS',
@@ -7,7 +7,7 @@ export enum Address {
   SELECT_ADDRESS = 'SELECT_ADDRESS',
 }
 
-export interface AddressState {
+export interface Address {
   id: string;
   name: string;
   address: string;
@@ -23,6 +23,10 @@ export interface AddressState {
   userId: string;
 }
 
+export interface AddressState {
+  [id: string]: Address;
+}
+
 export interface AddressRequest {
   name: string;
   address: string;
@@ -36,28 +40,28 @@ export interface AddressRequest {
 }
 
 interface CreateAddress {
-  type: Address.CREATE_ADDRESS;
-  payload: AddressState;
+  type: AddressTypes.CREATE_ADDRESS;
+  payload: Address;
 }
 
 interface FetchAddresses {
-  type: Address.FETCH_ADDRESSES;
-  payload: AddressState[];
+  type: AddressTypes.FETCH_ADDRESSES;
+  payload: Address[];
 }
 
 interface FetchAddress {
-  type: Address.FETCH_ADDRESS;
-  payload: AddressState;
+  type: AddressTypes.FETCH_ADDRESS;
+  payload: Address;
 }
 
 interface DeleteAddress {
-  type: Address.DELETE_ADDRESS;
+  type: AddressTypes.DELETE_ADDRESS;
   payload: string;
 }
 
 interface EditAddress {
-  type: Address.EDIT_ADDRESS;
-  payload: AddressState;
+  type: AddressTypes.EDIT_ADDRESS;
+  payload: Address;
 }
 
 export type AddressActionTypes =

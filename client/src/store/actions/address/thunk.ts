@@ -11,7 +11,7 @@ import {
   fetchAddress,
 } from './actions';
 import { setError } from '../error/actions';
-import { AddressRequest, AddressState } from './types';
+import { AddressRequest, Address } from './types';
 import history from '../../../history';
 
 type AppThunk<ReturnType = void> = ThunkAction<
@@ -25,7 +25,7 @@ export const thunkCreateAddress = (address: AddressRequest): AppThunk => async (
   dispatch
 ) => {
   try {
-    const response = await shopgt.post<AddressState>('/api/address', address);
+    const response = await shopgt.post<Address>('/api/address', address);
     dispatch(createAddress(response.data));
     history.push('/address/list');
   } catch (err) {
@@ -45,7 +45,7 @@ export const thunkEditAddress = (
   idAddress: string
 ): AppThunk => async (dispatch) => {
   try {
-    const response = await shopgt.put<AddressState>(
+    const response = await shopgt.put<Address>(
       `/api/address/${idAddress}`,
       address
     );
@@ -89,7 +89,7 @@ export const thunkFetchAddress = (id: string): AppThunk => async (
   const address = getState().address;
   if (isEmpty(address)) {
     try {
-      const response = await shopgt.get<AddressState>(`/api/address/${id}`);
+      const response = await shopgt.get<Address>(`/api/address/${id}`);
       dispatch(fetchAddress(response.data));
     } catch (err) {
       if (err && err.response) {
@@ -111,7 +111,7 @@ export const thunkFetchAddresses = (): AppThunk => async (
   const address = getState().address;
   if (isEmpty(address)) {
     try {
-      const response = await shopgt.get(`/api/address`);
+      const response = await shopgt.get<Address[]>(`/api/address`);
       dispatch(fetchAddresses(response.data));
     } catch (err) {
       if (err && err.response) {

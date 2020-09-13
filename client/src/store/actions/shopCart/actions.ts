@@ -1,29 +1,29 @@
-import { ShopCartTypes, ShopCartResponse, ShopCart } from './types';
+import { CartActionsTypes, ShopCartResponse, ShopCartTypes } from './types';
 
-export const addCardItem = (item: ShopCartResponse): ShopCartTypes => {
+export const addCardItem = (item: ShopCartResponse): CartActionsTypes => {
   return {
-    type: ShopCart.ADD_ITEMCARD,
+    type: ShopCartTypes.ADD_ITEMCARD,
     payload: item,
   };
 };
 
-export const deleteCardItem = (id: string): ShopCartTypes => {
+export const deleteCardItem = (id: string): CartActionsTypes => {
   return {
-    type: ShopCart.DELETE_ITEMCARD,
+    type: ShopCartTypes.DELETE_ITEMCARD,
     payload: id,
   };
 };
 
-export const fetchShopCard = (items: ShopCartResponse): ShopCartTypes => {
+export const fetchShopCard = (items: ShopCartResponse): CartActionsTypes => {
   return {
-    type: ShopCart.FETCH_CARDSHOP,
+    type: ShopCartTypes.FETCH_CARDSHOP,
     payload: items,
   };
 };
 
-export const selectedAddress = (id: string): ShopCartTypes => {
+export const selectedAddress = (id: string): CartActionsTypes => {
   return {
-    type: ShopCart.SELECT_ADDRESS,
+    type: ShopCartTypes.SELECT_ADDRESS,
     payload: id,
   };
 };

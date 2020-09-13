@@ -1,4 +1,4 @@
-export enum ShopCart {
+export enum ShopCartTypes {
   ADD_ITEMCARD = 'ADD_ITEM',
   FETCH_CARDSHOP = 'FETCH_CARDSHOP',
   DELETE_ITEMCARD = 'DELETE_ITEMCARD',
@@ -27,7 +27,7 @@ export interface ShopCartState {
   addressId: string;
   items: { [id: string]: ShopCartItem };
 }
-interface ShopCartItem {
+export interface ShopCartItem {
   product: Product;
   quantity: number;
 }
@@ -38,26 +38,26 @@ export interface ShopCartRequest {
 }
 
 interface AddItemCard {
-  type: ShopCart.ADD_ITEMCARD;
+  type: ShopCartTypes.ADD_ITEMCARD;
   payload: ShopCartResponse;
 }
 
 interface DeleteItemCard {
-  type: ShopCart.DELETE_ITEMCARD;
+  type: ShopCartTypes.DELETE_ITEMCARD;
   payload: string;
 }
 
 interface FetchCardShop {
-  type: ShopCart.FETCH_CARDSHOP;
+  type: ShopCartTypes.FETCH_CARDSHOP;
   payload: ShopCartResponse;
 }
 
 interface SelectAddress {
-  type: ShopCart.SELECT_ADDRESS;
+  type: ShopCartTypes.SELECT_ADDRESS;
   payload: string;
 }
 
-export type ShopCartTypes =
+export type CartActionsTypes =
   | AddItemCard
   | DeleteItemCard
   | FetchCardShop
