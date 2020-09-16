@@ -82,7 +82,7 @@ const ProductForm = ({ defaultValues, callback }: Props) => {
             />
             {errors.name && <p>Name input is required</p>}
           </MDBCol>
-          <MDBCol md="4" className="mb-2">
+          <MDBCol md="6">
             <label
               htmlFor="defaultFormRegisterConfirmEx3"
               className="grey-text"

@@ -1,3 +1,4 @@
+import { MDBContainer } from 'mdbreact';
 import React from 'react';
 interface Props {
   value: string;
@@ -5,11 +6,12 @@ interface Props {
 }
 const Select = ({ value, handleChange }: Props) => {
   return (
-    <>
+    <MDBContainer style={{ padding: '20px 0px 0px 0px' }}>
       <select
         className="browser-default custom-select"
         value={value}
         onChange={handleChange}
+        style={{ width: '30%' }}
       >
         <option value="1">1</option>
         <option value="2">2</option>
@@ -22,7 +24,7 @@ const Select = ({ value, handleChange }: Props) => {
         <option value="9">9</option>
         <option value="10">10</option>
       </select>
-    </>
+    </MDBContainer>
   );
 };
 

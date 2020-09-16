@@ -24,6 +24,7 @@ it('get order by ID', async () => {
       },
       shopCartId: '21321445',
       shopCart: [{ product: 'Pulsera x', quantity: 20 }],
+      date: new Date().toISOString(),
     })
     .expect(201);
 
@@ -44,6 +45,7 @@ it('get order by ID', async () => {
       },
       shopCartId: '21321445',
       shopCart: [{ product: 'Pulsera x', quantity: 20 }],
+      date: new Date().toISOString(),
     })
     .expect(201);
 

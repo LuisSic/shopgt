@@ -35,6 +35,8 @@ export default (
         ...state,
         addressId: action.payload,
       };
+    case ShopCartTypes.CLEAN_CARD:
+      return { ...state, id: '', items: {} };
     default:
       return state;
   }

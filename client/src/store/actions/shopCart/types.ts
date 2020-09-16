@@ -3,6 +3,7 @@ export enum ShopCartTypes {
   FETCH_CARDSHOP = 'FETCH_CARDSHOP',
   DELETE_ITEMCARD = 'DELETE_ITEMCARD',
   SELECT_ADDRESS = 'SELECT_ADDRESS',
+  CLEAN_CARD = 'CLEAN_CARD',
 }
 
 interface Product {
@@ -57,8 +58,13 @@ interface SelectAddress {
   payload: string;
 }
 
+interface CleanCard {
+  type: ShopCartTypes.CLEAN_CARD;
+}
+
 export type CartActionsTypes =
   | AddItemCard
   | DeleteItemCard
   | FetchCardShop
-  | SelectAddress;
+  | SelectAddress
+  | CleanCard;

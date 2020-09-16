@@ -84,6 +84,9 @@ const Header = () => {
       <MDBCollapse id="navbarCollapse3" isOpen={collapseID} navbar>
         <MDBNavbarNav right>
           <MDBNavItem>
+            <MDBNavLink to="/">Home</MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
             <MDBDropdown>
               <MDBDropdownToggle nav caret>
                 <div className="d-none d-md-inline">Products</div>
@@ -101,10 +104,10 @@ const Header = () => {
 
           {auth.isSignedIn ? (
             <>
-              <MDBNavItem active>
-                <MDBNavLink to="#!">Order History</MDBNavLink>
+              <MDBNavItem>
+                <MDBNavLink to="/order/list">Order History</MDBNavLink>
               </MDBNavItem>
-              <MDBNavItem active>
+              <MDBNavItem>
                 <MDBNavLink to="/address/list">Address Book</MDBNavLink>
               </MDBNavItem>
               <MDBNavItem>

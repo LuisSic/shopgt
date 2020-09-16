@@ -73,7 +73,7 @@ it('return an error with invalid shopCart in the order', async () => {
 });
 
 it('create an order with valid inputs', async () => {
-  await request(app)
+  const { body } = await request(app)
     .post('/api/order')
     .set('Cookie', global.signin())
     .send({
@@ -90,6 +90,7 @@ it('create an order with valid inputs', async () => {
       },
       shopCartId: '21321445',
       shopCart: [{ product: 'Pulsera x', quantity: 20 }],
+      date: new Date().toISOString(),
     })
     .expect(201);
 });

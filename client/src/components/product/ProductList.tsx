@@ -5,12 +5,13 @@ import {
   MDBContainer,
   MDBRow,
   MDBCol,
-  MDBCardTitle,
   MDBBtn,
-  MDBCardText,
   MDBIcon,
+  MDBView,
+  MDBCardImage,
+  MDBCardText,
 } from 'mdbreact';
-import Card from './Card';
+import Card from '../Card';
 import Modal from '../Modal';
 import { ResponseDataProduct } from './types';
 
@@ -40,10 +41,6 @@ const ProductList = () => {
     doRequestGet();
   }, [doRequestGet]);
 
-  const fetchDeleteProduct = async () => {
-    doRequestDelete();
-  };
-
   const openModalDelete = (id: string) => {
     setOpenModalDelete(true);
     setIdProduct(id);
@@ -51,30 +48,57 @@ const ProductList = () => {
 
   const removeItem = () => {
     setOpenModalDelete(false);
-    fetchDeleteProduct();
+    doRequestDelete();
   };
 
   const renderBody = (produc: ResponseDataProduct) => {
     return (
       <>
-        <MDBCardTitle tag="h5">{produc.name}</MDBCardTitle>
         <MDBCardText>{produc.description}</MDBCardText>
-        <MDBCardText>{`Price ${produc.price}`}</MDBCardText>
-        <Link to={`/products/edit/${produc.id}`}>
-          <MDBBtn color="primary">Edit</MDBBtn>
-        </Link>
-        <MDBBtn color="danger" onClick={() => openModalDelete(produc.id)}>
-          Delete
-        </MDBBtn>
+        <MDBCardText>{`Price Q ${produc.price}`}</MDBCardText>
       </>
     );
   };
+
+  const cardBtns = (producId: string) => (
+    <>
+      <Link to={`/products/edit/${producId}`}>
+        <MDBBtn color="indigo" size="sm">
+          <MDBIcon icon="edit" size="2x" />
+        </MDBBtn>
+      </Link>
+      <MDBBtn
+        color="danger"
+        onClick={() => openModalDelete(producId)}
+        size="sm"
+      >
+        <MDBIcon icon="trash-alt" size="2x" />
+      </MDBBtn>
+    </>
+  );
+
+  const cardImage = (srcImg: string) => (
+    <MDBView hover zoom>
+      <MDBCardImage
+        alt="MDBCard image cap"
+        top
+        overlay="white-slight"
+        src={srcImg}
+        cascade
+      />
+    </MDBView>
+  );
 
   const renderCard = (product: ResponseDataProduct[]) =>
     product.map((p) => {
       return (
         <MDBCol sm="4" key={p.id}>
-          <Card image={p.imageUrl} children={renderBody(p)} />
+          <Card
+            cardImage={cardImage(p.imageUrl)}
+            cardTitle={p.name}
+            customText={renderBody(p)}
+            cardBtns={cardBtns(p.id)}
+          />
         </MDBCol>
       );
     });

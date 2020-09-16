@@ -56,10 +56,11 @@ app.post(
       .not()
       .isEmpty()
       .withMessage('you need to provide the shopCartId in the Order'),
+    body('date').isISO8601().withMessage('Date is required'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { total, homeAddress, shopCart, shopCartId } = req.body;
+    const { total, homeAddress, shopCart, shopCartId, date } = req.body;
 
     const order = Order.build({
       userId: req.currentUser!.id,
@@ -68,6 +69,7 @@ app.post(
       shopCart,
       status: OrderStatus.Created,
       shopCartId,
+      dateOrder: new Date(date).toUTCString(),
     });
 
     await order.save();

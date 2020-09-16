@@ -7,16 +7,14 @@ import {
   MDBRow,
   MDBCol,
   MDBBtn,
-  MDBCardText,
   MDBIcon,
-  MDBCard,
-  MDBCardBody,
-  MDBCardTitle,
+  MDBCardText,
 } from 'mdbreact';
 import Modal from '../Modal';
 import { RootState } from '../../store';
 import { thunkDeleteAddress } from '../../store/actions/address/thunk';
-import { AddressState } from '../../store/actions/address/types';
+import { Address } from '../../store/actions/address/types';
+import Card from '../Card';
 
 const AddressList = () => {
   const addressSelector = (state: RootState) => state.address;
@@ -24,11 +22,7 @@ const AddressList = () => {
   const dispatch = useDispatch();
   const [isOpenModalDelete, setOpenModalDelete] = useState(false);
   const [idAddress, setIdAddress] = useState('');
-  /*
-  useEffect(() => {
-    dispatch(thunkFetchAddresses());
-  }, [dispatch]);
-*/
+
   const openModalDelete = (id: string) => {
     setOpenModalDelete(true);
     setIdAddress(id);
@@ -39,33 +33,47 @@ const AddressList = () => {
     dispatch(thunkDeleteAddress(idAddress));
   };
 
-  const renderBody = (address: AddressState) => {
+  const cardText = (address: Address) => {
     return (
       <>
-        <MDBCard style={{ width: '22rem' }}>
-          <MDBCardBody>
-            <MDBCardTitle>{address.name}</MDBCardTitle>
-            <MDBCardText>{address.country}</MDBCardText>
-            <MDBCardText>{address.deparment}</MDBCardText>
-            <MDBCardText>{address.township}</MDBCardText>
-            <MDBCardText>{address.address}</MDBCardText>
-            <Link to={`/address/edit/${address.id}`}>
-              <MDBBtn color="primary">Edit</MDBBtn>
-            </Link>
-            <MDBBtn color="danger" onClick={() => openModalDelete(address.id)}>
-              Delete
-            </MDBBtn>
-          </MDBCardBody>
-        </MDBCard>
+        <MDBCardText>{address.address}</MDBCardText>
+        <MDBCardText>
+          {address.township}
+          {`, ${address.country}`}
+        </MDBCardText>
+        <MDBCardText>{address.deparment}</MDBCardText>
       </>
     );
   };
 
-  const renderCard = (listAddress: AddressState[]) =>
+  const cardBtns = (address: Address) => {
+    return (
+      <>
+        <Link to={`/address/edit/${address.id}`}>
+          <MDBBtn color="indigo" size="sm">
+            <MDBIcon icon="edit" size="2x" />
+          </MDBBtn>
+        </Link>
+        <MDBBtn
+          color="danger"
+          onClick={() => openModalDelete(address.id)}
+          size="sm"
+        >
+          <MDBIcon icon="trash-alt" size="2x" />
+        </MDBBtn>
+      </>
+    );
+  };
+
+  const renderCard = (listAddress: Address[]) =>
     listAddress.map((address) => {
       return (
         <MDBCol sm="4" key={address.id}>
-          {renderBody(address)}
+          <Card
+            customText={cardText(address)}
+            cardTitle={address.name}
+            cardBtns={cardBtns(address)}
+          />
         </MDBCol>
       );
     });

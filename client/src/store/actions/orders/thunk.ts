@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { ThunkAction } from 'redux-thunk';
 import { Action } from 'redux';
 import { createOrder, cancelOrder, fetchOrder, fetchOrders } from './actions';
@@ -6,6 +7,7 @@ import history from '../../../history';
 import { RootState } from '../../';
 import { setError } from '../error/actions';
 import { OrderRequest, Order } from './types';
+import { cleanShopCart } from '../shopCart/actions';
 
 type AppThunk<ReturnType = void> = ThunkAction<
   void,
@@ -20,6 +22,7 @@ export const thunkCreateOrder = (order: OrderRequest): AppThunk => async (
   try {
     const response = await shopgt.post<Order>('/api/order', order);
     dispatch(createOrder(response.data));
+    dispatch(cleanShopCart());
     history.push('/order/list');
   } catch (err) {
     if (err && err.response) {
@@ -55,7 +58,7 @@ export const thunkFetchOrder = (orderId: string): AppThunk => async (
   dispatch
 ) => {
   try {
-    const response = await shopgt.get<Order>(`/api/order/:${orderId}`);
+    const response = await shopgt.get<Order>(`/api/order/${orderId}`);
     dispatch(fetchOrder(response.data));
   } catch (err) {
     if (err && err.response) {
@@ -69,12 +72,13 @@ export const thunkFetchOrder = (orderId: string): AppThunk => async (
   }
 };
 
-export const thunkFetchOrders = (orderId: string): AppThunk => async (
-  dispatch
-) => {
+export const thunkFetchOrders = (): AppThunk => async (dispatch, getState) => {
   try {
-    const response = await shopgt.get<Order[]>(`/api/order/:${orderId}`);
-    dispatch(fetchOrders(response.data));
+    const orders = getState().orders;
+    if (_.isEmpty(orders)) {
+      const response = await shopgt.get<Order[]>(`/api/order`);
+      dispatch(fetchOrders(response.data));
+    }
   } catch (err) {
     if (err && err.response) {
       dispatch(

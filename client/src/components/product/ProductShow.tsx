@@ -39,8 +39,6 @@ const ProductShow = () => {
     );
   };
 
-  console.log(product);
-
   if (!product) {
     return <Loader />;
   }
@@ -59,10 +57,17 @@ const ProductShow = () => {
         </MDBCol>
         <MDBCol>
           <h3>{product.name}</h3>
-          <span>{product.description}</span>
-          <span>Q.{product.price}</span>
+          <p>
+            <span>{product.description}</span>
+          </p>
+          <span>{`Precio Q${product.price}`}</span>
           <Select value={quantity.toString()} handleChange={handleChange} />
-          <MDBBtn color="primary" onClick={addItemShopCart}>
+          <MDBBtn
+            active
+            color="primary"
+            onClick={addItemShopCart}
+            style={{ margin: '20px 0px 0px 0px' }}
+          >
             Add Shopping-Cart
           </MDBBtn>
         </MDBCol>

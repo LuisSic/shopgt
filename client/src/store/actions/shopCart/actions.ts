@@ -27,3 +27,9 @@ export const selectedAddress = (id: string): CartActionsTypes => {
     payload: id,
   };
 };
+
+export const cleanShopCart = (): CartActionsTypes => {
+  return {
+    type: ShopCartTypes.CLEAN_CARD,
+  };
+};

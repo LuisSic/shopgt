@@ -19,10 +19,10 @@ interface Address {
 
 export interface OrderRequest {
   total: number;
-  status: string;
   homeAddress: Address;
   shopCartId: string;
   shopCart: Array<ShopCartItem>;
+  date: string;
 }
 
 export interface OrderState {
@@ -38,6 +38,7 @@ export interface Order {
   status: string;
   shopCartId: string;
   version: number;
+  dateOrder: string;
 }
 
 interface CreateOrder {

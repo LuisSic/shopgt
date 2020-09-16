@@ -4,30 +4,47 @@ import {
   MDBContainer,
   MDBRow,
   MDBCol,
-  MDBCardTitle,
+  MDBView,
+  MDBCardImage,
   MDBCardText,
 } from 'mdbreact';
-import Card from '../components/product/Card';
+import Card from './Card';
 import { Link } from 'react-router-dom';
 import { ResponseDataProduct } from './product/types';
 import useRequest from '../hooks/user-request';
 import Loader from './Loader';
-const renderBody = (product: ResponseDataProduct) => {
+
+const cardTitle = (product: ResponseDataProduct) => {
   return (
     <>
       <Link to={`/products/view/${product.id}`}>
-        <MDBCardTitle tag="h5">{product.name}</MDBCardTitle>
+        <span>{product.name}</span>
       </Link>
-      <MDBCardText>{`Price ${product.price}`}</MDBCardText>
     </>
   );
 };
+
+const cardImage = (srcImg: string) => (
+  <MDBView hover zoom>
+    <MDBCardImage
+      alt="MDBCard image cap"
+      top
+      overlay="white-slight"
+      src={srcImg}
+      cascade
+    />
+  </MDBView>
+);
 
 const renderCard = (product: ResponseDataProduct[]) =>
   product.map((p) => {
     return (
       <MDBCol sm="4" key={p.id}>
-        <Card image={p.imageUrl} children={renderBody(p)} />
+        <Card
+          cardImage={cardImage(p.imageUrl)}
+          customText={<MDBCardText>Price Q {p.price}</MDBCardText>}
+          cardTitle={cardTitle(p)}
+        />
       </MDBCol>
     );
   });

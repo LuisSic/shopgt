@@ -25,6 +25,7 @@ interface OrderAttrs {
   homeAddress: Address;
   shopCartId: string;
   shopCart: Array<Cart>;
+  dateOrder: string;
 }
 
 interface OrderDoc extends mongoose.Document {
@@ -35,6 +36,7 @@ interface OrderDoc extends mongoose.Document {
   status: OrderStatus;
   shopCartId: string;
   version: number;
+  dateOrder: string;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
@@ -91,6 +93,10 @@ const orderSchema = new mongoose.Schema(
       type: String,
       required: true,
       enum: Object.values(OrderStatus),
+    },
+    dateOrder: {
+      type: String,
+      required: true,
     },
   },
   {

@@ -7,6 +7,8 @@ import {
   MDBCol,
   MDBBtn,
   MDBRow,
+  MDBDropdownItem,
+  MDBCardText,
 } from 'mdbreact';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
@@ -14,12 +16,17 @@ import {
   thunkDeleteItem,
   thunkFecthCart,
 } from '../../store/actions/shopCart/thunk';
+import { thunkCreateOrder } from '../../store/actions/orders/thunk';
 import { selectedAddress } from '../../store/actions/shopCart/actions';
+import Dropdown from './Dropdown';
+import history from '../../history';
+import Card from '../Card';
+import { Address } from '../../store/actions/address/types';
 const columns = [
   {
     label: 'Product',
     field: 'Product',
-    width: 150,
+    width: 100,
     sort: 'disabled',
     attributes: {
       'aria-controls': 'DataTable',
@@ -89,33 +96,58 @@ const ShopCartList = () => {
 
   const total = rows.reduce((a, b) => a + b.SubTotal, 0);
 
-  const onValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(selectedAddress(e.target.value));
-  };
-  const addressList = Object.values(addressBook).map((address) => {
-    return (
-      <label key={address.id}>
-        <input
-          type="radio"
-          value={address.id}
-          checked={shopCart.addressId === address.id}
-          onChange={onValueChange}
+  const addressDropdownItem = (): JSX.Element[] => {
+    let renderAddress = Object.values(addressBook).map((address) => {
+      return (
+        <MDBDropdownItem
+          onClick={() => dispatch(selectedAddress(address.id))}
           key={address.id}
-        />
-        {' ' + address.name}
-      </label>
+        >
+          {address.name}
+        </MDBDropdownItem>
+      );
+    });
+
+    renderAddress.push(<MDBDropdownItem divider key="0" />);
+    renderAddress.push(
+      <MDBDropdownItem onClick={() => history.push('/address/new')} key="1">
+        Create Address
+      </MDBDropdownItem>
     );
-  });
+
+    return renderAddress;
+  };
 
   const handleOnclickOrder = () => {
-    console.log('hola');
+    dispatch(
+      thunkCreateOrder({
+        total,
+        homeAddress: addressBook[shopCart.addressId],
+        shopCartId: shopCart.id,
+        shopCart: Object.values(shopCart.items),
+        date: new Date().toISOString(),
+      })
+    );
+  };
+
+  const cardText = (address: Address) => {
+    return (
+      <>
+        <MDBCardText>{address.address}</MDBCardText>
+        <MDBCardText>
+          {address.township}
+          {`, ${address.country}`}
+        </MDBCardText>
+        <MDBCardText>{address.deparment}</MDBCardText>
+      </>
+    );
   };
 
   return (
     <MDBContainer>
       <h2>Shopping-Cart</h2>
       <MDBRow>
-        <MDBCol size="9">
+        <MDBCol size="8">
           <MDBDataTable
             hover
             data={{ columns, rows }}
@@ -124,16 +156,29 @@ const ShopCartList = () => {
             paging={false}
           />
         </MDBCol>
-        <MDBCol size="3">
-          <p>
-            <span>Total: Q {total}</span>
-          </p>
-          <p>
-            <span>Select Address</span>
-          </p>
-          <div>{addressList}</div>
+        <MDBCol size="4">
+          <span>Total: Q {total}</span>
+
+          <Dropdown
+            children={addressDropdownItem()}
+            ropdownToggle="Select your Address"
+          ></Dropdown>
+
+          {shopCart.addressId && (
+            <Card
+              customText={cardText(addressBook[shopCart.addressId])}
+              cardTitle={addressBook[shopCart.addressId].name}
+            />
+          )}
+
           {total > 0 && (
-            <MDBBtn onClick={handleOnclickOrder}>Make Order</MDBBtn>
+            <MDBBtn
+              color="primary"
+              onClick={handleOnclickOrder}
+              style={{ margin: '20px 0px 0px 0px' }}
+            >
+              Make Order
+            </MDBBtn>
           )}
         </MDBCol>
       </MDBRow>

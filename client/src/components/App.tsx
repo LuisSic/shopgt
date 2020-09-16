@@ -14,8 +14,10 @@ import Address from './address/AddressCreate';
 import AddressEdit from './address/AddressEdit';
 import history from '../history';
 import AddressList from '../components/address/AddressList';
+import OrderHistory from '../components/orders/OrderHistory';
 import Modal from './Modal';
 import ShopCartList from './shopcart/ShopCartList';
+import Stripe from '../components/payment/Stripe';
 import { hideError } from '../store/actions/error/actions';
 import { RootState } from '../store';
 const App = () => {
@@ -57,6 +59,8 @@ const App = () => {
         <Route exact path="/address/list" component={AddressList} />
         <Route exact path="/address/edit/:id" component={AddressEdit} />
         <Route exact path="/shopcart" component={ShopCartList} />
+        <Route exact path="/order/list" component={OrderHistory} />
+        <Route exact path="/payment/:id" component={Stripe} />
         <Route path="/" component={Home} />
       </Switch>
       <Modal
