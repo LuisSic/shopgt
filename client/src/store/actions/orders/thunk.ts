@@ -72,13 +72,10 @@ export const thunkFetchOrder = (orderId: string): AppThunk => async (
   }
 };
 
-export const thunkFetchOrders = (): AppThunk => async (dispatch, getState) => {
+export const thunkFetchOrders = (): AppThunk => async (dispatch) => {
   try {
-    const orders = getState().orders;
-    if (_.isEmpty(orders)) {
-      const response = await shopgt.get<Order[]>(`/api/order`);
-      dispatch(fetchOrders(response.data));
-    }
+    const response = await shopgt.get<Order[]>(`/api/order`);
+    dispatch(fetchOrders(response.data));
   } catch (err) {
     if (err && err.response) {
       dispatch(

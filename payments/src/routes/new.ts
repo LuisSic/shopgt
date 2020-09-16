@@ -29,6 +29,7 @@ router.post(
     const { token, orderId, email } = req.body;
 
     const order = await Order.findById(orderId);
+    const orderCreated = await Payment.find({ orderId });
 
     if (!order) {
       throw new NotFoundError();
@@ -36,6 +37,9 @@ router.post(
 
     if (order.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
+    }
+    if (orderCreated) {
+      throw new BadRequestError('Cannot pay for an completed order');
     }
 
     if (order.status === OrderStatus.Cancelled) {

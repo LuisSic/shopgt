@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MDBDataTable, MDBContainer, MDBIcon } from 'mdbreact';
-import { thunkFetchOrders } from '../../store/actions/orders/thunk';
+import {
+  thunkFetchOrders,
+  thunkCancelOrder,
+} from '../../store/actions/orders/thunk';
 import { RootState } from '../../store';
 import history from '../../history';
 
+const cancel = 'cancelled';
+const complete = 'complete';
 const columns = [
   {
     label: 'No. Order',
@@ -59,17 +64,18 @@ const OrderHistory = () => {
     Date: new Date(order.dateOrder).toString(),
     State: order.status,
     Total: order.total,
-    Cancel: (
+    Cancel: complete !== order.status && cancel !== order.status && (
       <MDBIcon
         far
-        icon="trash-alt"
+        icon="times"
         style={{ cursor: 'pointer' }}
         className="red-text"
         size="lg"
-        onClick={() => console.log('hola')}
+        onClick={() => dispatch(thunkCancelOrder(order.id))}
       />
     ),
-    Pay: (
+
+    Pay: complete !== order.status && cancel !== order.status && (
       <MDBIcon
         far
         icon="credit-card"

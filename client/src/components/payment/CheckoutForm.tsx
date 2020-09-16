@@ -1,13 +1,16 @@
 import './cardDetail.css';
 import '../messageError.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { thunkFetchOrder } from '../../store/actions/orders/thunk';
+import {
+  thunkFetchOrder,
+  thunkPayOrder,
+} from '../../store/actions/orders/thunk';
 
 interface PaymentFormData {
   firstName: string;
@@ -38,6 +41,7 @@ const CARD_OPTIONS = {
 };
 
 const CheckoutForm = () => {
+  const [cardError, setCardError] = useState<string>();
   const stripe = useStripe();
   const elements = useElements();
   const { id } = useParams<ParamTypes>();
@@ -52,7 +56,7 @@ const CheckoutForm = () => {
 
   const onSubmit = async (data: PaymentFormData) => {
     // Block native form submission.
-    console.log(data);
+
     if (!stripe || !elements) {
       // Stripe.js has not loaded yet. Make sure to disable
       // form submission until Stripe.js has loaded.
@@ -68,9 +72,9 @@ const CheckoutForm = () => {
     const { error, token } = await stripe.createToken(cardElement);
 
     if (error) {
-      console.log('[error]', error);
+      setCardError(error.message);
     } else {
-      console.log('[token]', token);
+      dispatch(thunkPayOrder(id, token!.object, data.email));
     }
   };
 
@@ -136,6 +140,7 @@ const CheckoutForm = () => {
             Credit or debit card
           </label>
           <CardElement options={CARD_OPTIONS} />
+          {cardError && <p>{cardError}</p>}
           <div
             className=" d-flex justify-content-center"
             style={{ margin: '40px 0px 0px 0px' }}
