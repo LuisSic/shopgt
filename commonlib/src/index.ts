@@ -20,3 +20,5 @@ export * from './events/product-updated-event';
 export * from './events/order-created-event';
 export * from './events/order-cancelled-event';
 export * from './events/subjects';
+export * from './events/address-created-event';
+export * from './events/address-updated-event';
