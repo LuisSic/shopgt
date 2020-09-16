@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { requireAuth, validateRequest } from '@blackteam/commonlib';
 import { Address } from '../models/address';
+import { natsWrapper } from '../nats-wrapper';
+import { AddressCreatedPublisher } from '../events/publishers/address-created-publisher';
 
 const route = express.Router();
 
@@ -34,6 +36,17 @@ route.post(
     });
 
     await newAddress.save();
+
+    new AddressCreatedPublisher(natsWrapper.client).publish({
+      id: newAddress.id,
+      name: newAddress.name,
+      address: newAddress.address,
+      country: newAddress.country,
+      deparment: newAddress.deparment,
+      township: newAddress.township,
+      userId: newAddress.userId,
+    });
+
     res.status(201).send(newAddress);
   }
 );

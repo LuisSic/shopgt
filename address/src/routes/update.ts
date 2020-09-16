@@ -1,4 +1,4 @@
-import express, { Request, Response, text } from 'express';
+import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import {
   requireAuth,
@@ -7,6 +7,8 @@ import {
   NotAuthorizedError,
 } from '@blackteam/commonlib';
 import { Address } from '../models/address';
+import { natsWrapper } from '../nats-wrapper';
+import { AddressUpdatedPublisher } from '../events/publishers/address-updated-publisher';
 
 const route = express.Router();
 
@@ -23,17 +25,17 @@ route.put(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const updateAdress = await Address.findById(req.params.addressId);
+    const updatedAddress = await Address.findById(req.params.addressId);
 
-    if (!updateAdress) {
+    if (!updatedAddress) {
       throw new NotFoundError();
     }
 
-    if (req.currentUser?.id !== updateAdress.userId) {
+    if (req.currentUser?.id !== updatedAddress.userId) {
       throw new NotAuthorizedError();
     }
 
-    updateAdress.set({
+    updatedAddress.set({
       address: req.body.address,
       country: req.body.country,
       deparment: req.body.deparment,
@@ -41,9 +43,20 @@ route.put(
       position: req.body.position,
     });
 
-    await updateAdress.save();
+    await updatedAddress.save();
 
-    res.send(updateAdress);
+    new AddressUpdatedPublisher(natsWrapper.client).publish({
+      id: updatedAddress.id,
+      name: updatedAddress.name,
+      address: updatedAddress.address,
+      country: updatedAddress.country,
+      deparment: updatedAddress.deparment,
+      township: updatedAddress.township,
+      userId: updatedAddress.userId,
+      version: updatedAddress.version,
+    });
+
+    res.send(updatedAddress);
   }
 );
 

@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
 import { PaymentCreatedListener } from '../src/events/listeners/payment-created-event';
+import { AddressCreatedListener } from '../src/events/listeners/address-created-event';
+import { AddressUpdatedListener } from '../src/events/listeners/address-updated-event';
 
 const start = async () => {
   if (!process.env.MONGO_URL) {
@@ -33,6 +35,8 @@ const start = async () => {
     });
 
     new PaymentCreatedListener(natsWrapper.client).listen();
+    new AddressCreatedListener(natsWrapper.client).listen();
+    new AddressUpdatedListener(natsWrapper.client).listen();
 
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
