@@ -9,5 +9,6 @@ export interface AddressUpdatedEvent {
     deparment: string;
     township: string;
     userId: string;
+    version: number;
   };
 }
