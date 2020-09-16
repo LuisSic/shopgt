@@ -1,26 +1,37 @@
 import request from 'supertest';
+import mongoose from 'mongoose';
 import { app } from '../../app';
+import { Address } from '../../models/address';
+
+const buildAddress = async () => {
+  const id = mongoose.Types.ObjectId().toHexString();
+  const address = Address.build({
+    id: id,
+    name: 'My Home',
+    address: '5ta av. 1-86 zona 11',
+    country: 'Guatemala',
+    deparment: 'Guatemala',
+    township: 'San Miguel Petapa',
+    userId: id,
+  });
+
+  await address.save();
+
+  return address;
+};
 
 it('can only be accessed if the user is signed in', async () => {
   await request(app).post('/api/order').send({}).expect(401);
 });
 
 it('return an error with invalid total in the order', async () => {
+  const address = await buildAddress();
   const { body } = await request(app)
     .post('/api/order')
     .set('Cookie', global.signin())
     .send({
       total: '',
-      homeAddress: {
-        address: 'Guatemala',
-        country: 'Guatemala',
-        deparment: 'Guatemala',
-        township: 'Guatemala',
-        position: {
-          long: '111111',
-          lat: '12312323',
-        },
-      },
+      addressId: address.id,
       shopCartId: '21321445',
       shopCart: [
         {
@@ -32,13 +43,14 @@ it('return an error with invalid total in the order', async () => {
     .expect(400);
 });
 
-it('return an error with invalid homeAddress in the order', async () => {
+it('return an error with invalid addressId in the order', async () => {
+  const id = mongoose.Types.ObjectId().toHexString();
   const { body } = await request(app)
     .post('/api/order')
     .set('Cookie', global.signin())
     .send({
       total: 20,
-      homeAddress: {},
+      addressId: id,
       shopCartId: '21321445',
       shopCart: [
         {
@@ -51,21 +63,13 @@ it('return an error with invalid homeAddress in the order', async () => {
 });
 
 it('return an error with invalid shopCart in the order', async () => {
+  const address = await buildAddress();
   const { body } = await request(app)
     .post('/api/order')
     .set('Cookie', global.signin())
     .send({
       total: 20,
-      homeAddress: {
-        address: 'Guatemala',
-        country: 'Guatemala',
-        deparment: 'Guatemala',
-        township: 'Guatemala',
-        position: {
-          long: '111111',
-          lat: '12312323',
-        },
-      },
+      addressId: address.id,
       shopCartId: '21321445',
       shopCart: [{ product: '', quantity: '' }],
     })
@@ -73,21 +77,13 @@ it('return an error with invalid shopCart in the order', async () => {
 });
 
 it('create an order with valid inputs', async () => {
+  const address = await buildAddress();
   const { body } = await request(app)
     .post('/api/order')
     .set('Cookie', global.signin())
     .send({
       total: 20,
-      homeAddress: {
-        address: 'Guatemala',
-        country: 'Guatemala',
-        deparment: 'Guatemala',
-        township: 'Guatemala',
-        position: {
-          long: '111111',
-          lat: '12312323',
-        },
-      },
+      addressId: address.id,
       shopCartId: '21321445',
       shopCart: [{ product: 'Pulsera x', quantity: 20 }],
       date: new Date().toISOString(),

@@ -11,15 +11,12 @@ interface Address {
   country: string;
   deparment: string;
   township: string;
-  position: {
-    lat: string;
-    long: string;
-  };
+  name: string;
 }
 
 export interface OrderRequest {
   total: number;
-  homeAddress: Address;
+  addressId: string;
   shopCartId: string;
   shopCart: Array<ShopCartItem>;
   date: string;

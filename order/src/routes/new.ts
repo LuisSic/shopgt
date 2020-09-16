@@ -8,6 +8,7 @@ import {
 import { Order } from '../models/order';
 import { OrderCreatedPublisherEvent } from '../events/publishers/order-created-event';
 import { natsWrapper } from '../nats-wrapper';
+import { Address } from '../models/address';
 const app = express.Router();
 
 app.post(
@@ -17,34 +18,7 @@ app.post(
     body('total')
       .isFloat({ gt: 0 })
       .withMessage('Total must be greater than 0'),
-    body('homeAddress')
-      .not()
-      .isEmpty()
-      .withMessage('HomeAddress must be defined'),
-    body('homeAddress.position.lat')
-      .not()
-      .isEmpty()
-      .withMessage('lat is required'),
-    body('homeAddress.position.long')
-      .not()
-      .isEmpty()
-      .withMessage('long is required'),
-    body('homeAddress.address')
-      .not()
-      .isEmpty()
-      .withMessage('address is required'),
-    body('homeAddress.country')
-      .not()
-      .isEmpty()
-      .withMessage('country is required'),
-    body('homeAddress.deparment')
-      .not()
-      .isEmpty()
-      .withMessage('deparment is required'),
-    body('homeAddress.township')
-      .not()
-      .isEmpty()
-      .withMessage('township is required'),
+    body('addressId').not().isEmpty().withMessage('Address Id must be defined'),
     body('shopCart.*.product')
       .not()
       .isEmpty()
@@ -60,12 +34,18 @@ app.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { total, homeAddress, shopCart, shopCartId, date } = req.body;
+    const { total, addressId, shopCart, shopCartId, date } = req.body;
+
+    const address = await Address.findById(addressId);
+
+    if (!address) {
+      throw new Error('Address Not Found');
+    }
 
     const order = Order.build({
       userId: req.currentUser!.id,
       total,
-      homeAddress,
+      homeAddress: address,
       shopCart,
       status: OrderStatus.Created,
       shopCartId,

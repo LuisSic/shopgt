@@ -8,14 +8,11 @@ interface Cart {
 }
 
 interface Address {
+  name: string;
   address: string;
   country: string;
   deparment: string;
   township: string;
-  position: {
-    lat: string;
-    long: string;
-  };
 }
 
 interface OrderAttrs {
@@ -54,6 +51,10 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
     homeAddress: {
+      name: {
+        type: String,
+        required: true,
+      },
       address: {
         type: String,
         required: true,
@@ -69,16 +70,6 @@ const orderSchema = new mongoose.Schema(
       township: {
         type: String,
         required: true,
-      },
-      position: {
-        lat: {
-          type: String,
-          required: true,
-        },
-        long: {
-          type: String,
-          required: true,
-        },
       },
     },
     shopCart: {

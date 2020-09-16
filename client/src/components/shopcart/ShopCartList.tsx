@@ -122,7 +122,7 @@ const ShopCartList = () => {
     dispatch(
       thunkCreateOrder({
         total,
-        homeAddress: addressBook[shopCart.addressId],
+        addressId: shopCart.addressId,
         shopCartId: shopCart.id,
         shopCart: Object.values(shopCart.items),
         date: new Date().toISOString(),
