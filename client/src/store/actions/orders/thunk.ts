@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { ThunkAction } from 'redux-thunk';
 import { Action } from 'redux';
 import { createOrder, cancelOrder, fetchOrder, fetchOrders } from './actions';

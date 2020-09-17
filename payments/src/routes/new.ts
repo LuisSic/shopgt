@@ -29,8 +29,8 @@ router.post(
     const { token, orderId, email } = req.body;
 
     const order = await Order.findById(orderId);
-    const orderCreated = await Payment.find({ orderId });
-
+    const orderCreated = await Payment.findOne({ orderId });
+    console.log(orderCreated);
     if (!order) {
       throw new NotFoundError();
     }

@@ -74,7 +74,7 @@ const CheckoutForm = () => {
     if (error) {
       setCardError(error.message);
     } else {
-      dispatch(thunkPayOrder(id, token!.object, data.email));
+      dispatch(thunkPayOrder(id, token!.id, data.email));
     }
   };
 
