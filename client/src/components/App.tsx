@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import ProductList from './product/ProductList';
 import ProductEdit from './product/ProductEdit';
 import ProductShow from './product/ProductShow';
+import OrderShow from './orders/OrderShow';
 import Home from './Home';
 import ProductCreate from './product/ProductCreate';
 import Address from './address/AddressCreate';
@@ -60,6 +61,7 @@ const App = () => {
         <Route exact path="/address/edit/:id" component={AddressEdit} />
         <Route exact path="/shopcart" component={ShopCartList} />
         <Route exact path="/order/list" component={OrderHistory} />
+        <Route exact path="/order/show/:id" component={OrderShow} />
         <Route exact path="/payment/:id" component={Stripe} />
         <Route path="/" component={Home} />
       </Switch>

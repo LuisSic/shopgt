@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MDBDataTable, MDBContainer, MDBIcon } from 'mdbreact';
+import { Link } from 'react-router-dom';
 import {
   thunkFetchOrders,
   thunkCancelOrder,
@@ -60,14 +61,14 @@ const OrderHistory = () => {
   }, [dispatch]);
 
   const rows = Object.values(orders).map((order) => ({
-    Order: order.id,
+    Order: <Link to={`/order/show/${order.id}`}>{order.id}</Link>,
     Date: new Date(order.dateOrder).toString(),
     State: order.status,
     Total: order.total,
     Cancel: complete !== order.status && cancel !== order.status && (
       <MDBIcon
         far
-        icon="times"
+        icon="trash-alt"
         style={{ cursor: 'pointer' }}
         className="red-text"
         size="lg"

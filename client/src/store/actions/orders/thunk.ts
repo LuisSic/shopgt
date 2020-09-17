@@ -39,7 +39,7 @@ export const thunkCancelOrder = (orderId: string): AppThunk => async (
   dispatch
 ) => {
   try {
-    const response = await shopgt.put<Order>(`/api/order/:${orderId}`);
+    const response = await shopgt.put<Order>(`/api/order/${orderId}`);
     dispatch(cancelOrder(response.data));
   } catch (err) {
     if (err && err.response) {
