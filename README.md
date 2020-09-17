@@ -1,6 +1,6 @@
 # Shopgt Microservices
 
-This is a e-commerce where you can signin with your Facebook and Google account. You can buy your items with your Debit and Credit card.
+This is an e-commerce web page where you can signin with your Facebook and Google account. You can buy your items with your Debit and Credit card.
 
 ### What technologies I used?
 
