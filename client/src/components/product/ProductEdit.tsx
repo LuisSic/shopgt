@@ -4,7 +4,6 @@ import { MDBContainer } from 'mdbreact';
 import history from '../../history';
 import ProductForm from './ProductForm';
 import { ResponseDataProduct, RequestDataProduct } from './types';
-import Loader from '../Loader';
 import useRequest from '../../hooks/user-request';
 interface ParamTypes {
   id: string;
@@ -36,22 +35,24 @@ const ProductEdit = () => {
     doRequestPut(product);
   };
 
-  return product ? (
+  return (
     <MDBContainer>
-      <h3>Edit a Product</h3>
-      <ProductForm
-        callback={onSubmit}
-        defaultValues={{
-          name: product.name,
-          description: product.description,
-          price: product.price,
-          urlImage: product.imageUrl,
-          nameImage: product.keyimage,
-        }}
-      />
+      {product && (
+        <>
+          <h3>Edit a Product</h3>
+          <ProductForm
+            callback={onSubmit}
+            defaultValues={{
+              name: product.name,
+              description: product.description,
+              price: product.price,
+              urlImage: product.imageUrl,
+              nameImage: product.keyimage,
+            }}
+          />
+        </>
+      )}
     </MDBContainer>
-  ) : (
-    <Loader />
   );
 };
 

@@ -9,7 +9,6 @@ import { thunkEditAddress } from '../../store/actions/address/thunk';
 import { thunkFetchAddress } from '../../store/actions/address/thunk';
 import AddressForm from './AddressForm';
 import Maps from './Maps';
-import Loader from '../Loader';
 
 interface Position {
   lat: number;
@@ -67,29 +66,29 @@ const AddressEdit = () => {
     );
   };
 
-  if (!address) {
-    return <Loader />;
-  }
-
   return (
     <MDBContainer>
-      <h3>Edit Address</h3>
-      <AddressForm defaultValues={address} callback={onSubmit} />
-      <MDBRow style={{ padding: '25px' }} center={true}>
-        <Maps
-          position={{
-            lat: parseFloat(address.position.lat),
-            lng: parseFloat(address.position.long),
-          }}
-          setPosition={callback}
-        />
-      </MDBRow>
-      <MDBRow center={true}>
-        <MDBBtn outline color="primary" onClick={location}>
-          <MDBIcon icon="map-marked-alt" />
-          Locate me
-        </MDBBtn>
-      </MDBRow>
+      {address && (
+        <>
+          <h3>Edit Address</h3>
+          <AddressForm defaultValues={address} callback={onSubmit} />
+          <MDBRow style={{ padding: '25px' }} center={true}>
+            <Maps
+              position={{
+                lat: parseFloat(address.position.lat),
+                lng: parseFloat(address.position.long),
+              }}
+              setPosition={callback}
+            />
+          </MDBRow>
+          <MDBRow center={true}>
+            <MDBBtn outline color="primary" onClick={location}>
+              <MDBIcon icon="map-marked-alt" />
+              Locate me
+            </MDBBtn>
+          </MDBRow>
+        </>
+      )}
     </MDBContainer>
   );
 };

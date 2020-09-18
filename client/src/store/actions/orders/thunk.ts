@@ -7,6 +7,7 @@ import { RootState } from '../../';
 import { setError } from '../error/actions';
 import { OrderRequest, Order } from './types';
 import { cleanShopCart } from '../shopCart/actions';
+import { showLoader, hideLoader } from '../loader/actios';
 
 type AppThunk<ReturnType = void> = ThunkAction<
   void,
@@ -19,11 +20,14 @@ export const thunkCreateOrder = (order: OrderRequest): AppThunk => async (
   dispatch
 ) => {
   try {
+    dispatch(showLoader());
     const response = await shopgt.post<Order>('/api/order', order);
     dispatch(createOrder(response.data));
     dispatch(cleanShopCart());
+    dispatch(hideLoader());
     history.push('/order/list');
   } catch (err) {
+    dispatch(hideLoader());
     if (err && err.response) {
       dispatch(
         setError({
@@ -39,9 +43,12 @@ export const thunkCancelOrder = (orderId: string): AppThunk => async (
   dispatch
 ) => {
   try {
+    dispatch(showLoader());
     const response = await shopgt.put<Order>(`/api/order/${orderId}`);
     dispatch(cancelOrder(response.data));
+    dispatch(hideLoader());
   } catch (err) {
+    dispatch(hideLoader());
     if (err && err.response) {
       dispatch(
         setError({
@@ -57,9 +64,12 @@ export const thunkFetchOrder = (orderId: string): AppThunk => async (
   dispatch
 ) => {
   try {
+    dispatch(showLoader());
     const response = await shopgt.get<Order>(`/api/order/${orderId}`);
     dispatch(fetchOrder(response.data));
+    dispatch(hideLoader());
   } catch (err) {
+    dispatch(hideLoader());
     if (err && err.response) {
       dispatch(
         setError({
@@ -73,9 +83,12 @@ export const thunkFetchOrder = (orderId: string): AppThunk => async (
 
 export const thunkFetchOrders = (): AppThunk => async (dispatch) => {
   try {
+    dispatch(showLoader());
     const response = await shopgt.get<Order[]>(`/api/order`);
     dispatch(fetchOrders(response.data));
+    dispatch(hideLoader());
   } catch (err) {
+    dispatch(hideLoader());
     if (err && err.response) {
       dispatch(
         setError({
@@ -98,8 +111,10 @@ export const thunkPayOrder = (
       token,
       email,
     });
+    dispatch(hideLoader());
     history.push('/order/list');
   } catch (err) {
+    dispatch(hideLoader());
     if (err && err.response) {
       dispatch(
         setError({

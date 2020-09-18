@@ -3,6 +3,7 @@ import errorReducer from './reducers/errorReducers';
 import addressReducer from './reducers/addressReducers';
 import shoppingCartReducer from './reducers/shopCardReducers';
 import orderReducer from './reducers/orderReducers';
+import loaderReducer from './reducers/loaderReducers';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   address: addressReducer,
   shoppingCart: shoppingCartReducer,
   orders: orderReducer,
+  loader: loaderReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

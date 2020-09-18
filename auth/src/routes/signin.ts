@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-const CLIENT_HOME_PAGE_URL = 'http://localhost:3000';
+const CLIENT_HOME_PAGE_URL = 'http://localhost:3000/';
 const router = express.Router();
 
 const generateJWT = (id: string, firstName: string, photo: string) => {

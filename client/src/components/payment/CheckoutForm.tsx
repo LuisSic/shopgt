@@ -6,6 +6,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { showLoader, hideLoader } from '../../store/actions/loader/actios';
 import { RootState } from '../../store';
 import {
   thunkFetchOrder,
@@ -67,11 +68,12 @@ const CheckoutForm = () => {
     // to find your CardElement because there can only ever be one of
     // each type of element.
     const cardElement = elements.getElement(CardElement)!;
-
+    dispatch(showLoader());
     // Use your card Element with other Stripe.js APIs
     const { error, token } = await stripe.createToken(cardElement);
 
     if (error) {
+      dispatch(hideLoader());
       setCardError(error.message);
     } else {
       dispatch(thunkPayOrder(id, token!.id, data.email));

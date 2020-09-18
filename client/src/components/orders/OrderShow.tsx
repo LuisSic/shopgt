@@ -64,7 +64,7 @@ const OrderShow = () => {
   return (
     <MDBContainer>
       <h2>Order Detail</h2>
-      <MDBRow>
+      <MDBRow style={{ padding: '25px 0px 25px 0px' }}>
         <MDBCol>
           <ul className="list-unstyled ">{renderItems}</ul>
         </MDBCol>

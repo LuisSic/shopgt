@@ -1,0 +1,14 @@
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f8f8f8ad;
+}
+.loader {
+  left: 50%;
+  top: 30%;
+  z-index: 1000;
+  position: absolute;
+}

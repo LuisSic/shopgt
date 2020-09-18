@@ -24,18 +24,24 @@ import {
 } from 'react-social-login-buttons';
 import { thunkFetchAddresses } from '../store/actions/address/thunk';
 
-const handleSignInClickF = () => {
+const handleSignInFacebook = () => {
   // Authenticate using via passport api in the backend
   // Open Facebook login page
   window.open('http://localhost:80/api/users/facebook', '_self');
 };
 
+const handleSignInGoogle = () => {
+  // Authenticate using via passport api in the backend
+  // Open Google login page
+  window.open('http://localhost:80/api/users/google', '_self');
+};
+
 const renderBtnLogin = (
   <>
-    <FacebookLoginButton onClick={handleSignInClickF}>
+    <FacebookLoginButton onClick={handleSignInFacebook}>
       <span>Facebook</span>
     </FacebookLoginButton>
-    <GoogleLoginButton onClick={handleSignInClickF}>
+    <GoogleLoginButton onClick={handleSignInGoogle}>
       <span>Google</span>
     </GoogleLoginButton>
   </>
@@ -86,24 +92,24 @@ const Header = () => {
           <MDBNavItem>
             <MDBNavLink to="/">Home</MDBNavLink>
           </MDBNavItem>
-          <MDBNavItem>
-            <MDBDropdown>
-              <MDBDropdownToggle nav caret>
-                <div className="d-none d-md-inline">Products</div>
-              </MDBDropdownToggle>
-              <MDBDropdownMenu className="dropdown-default" right>
-                <MDBDropdownItem>
-                  <Link to="/products/new">Create</Link>
-                </MDBDropdownItem>
-                <MDBDropdownItem>
-                  <Link to="/products/list">Product Book</Link>
-                </MDBDropdownItem>
-              </MDBDropdownMenu>
-            </MDBDropdown>
-          </MDBNavItem>
 
           {auth.isSignedIn ? (
             <>
+              <MDBNavItem>
+                <MDBDropdown>
+                  <MDBDropdownToggle nav caret>
+                    <div className="d-none d-md-inline">Products</div>
+                  </MDBDropdownToggle>
+                  <MDBDropdownMenu className="dropdown-default" right>
+                    <MDBDropdownItem>
+                      <Link to="/products/new">Create</Link>
+                    </MDBDropdownItem>
+                    <MDBDropdownItem>
+                      <Link to="/products/list">Product Book</Link>
+                    </MDBDropdownItem>
+                  </MDBDropdownMenu>
+                </MDBDropdown>
+              </MDBNavItem>
               <MDBNavItem>
                 <MDBNavLink to="/order/list">Order History</MDBNavLink>
               </MDBNavItem>
