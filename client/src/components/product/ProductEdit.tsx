@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { MDBContainer } from 'mdbreact';
-import history from '../../history';
-import ProductForm from './ProductForm';
 import { ResponseDataProduct, RequestDataProduct } from './types';
+import ProductForm from './ProductForm';
 import useRequest from '../../hooks/user-request';
+import history from '../../history';
 interface ParamTypes {
   id: string;
 }

@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCardText } from 'mdbreact';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../../store';
-import { useSelector, useDispatch } from 'react-redux';
 import { thunkFetchOrder } from '../../store/actions/orders/thunk';
-
 import Card from '../Card';
 
 interface ParamTypes {

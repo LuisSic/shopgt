@@ -3,21 +3,21 @@ import { thunkSignIn } from '../store/actions/user/thunk';
 import { useDispatch } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import Header from '../components/Header';
+import Home from './Home';
 import ProductList from './product/ProductList';
 import ProductEdit from './product/ProductEdit';
 import ProductShow from './product/ProductShow';
-import OrderShow from './orders/OrderShow';
-import Home from './Home';
 import ProductCreate from './product/ProductCreate';
+import OrderShow from './orders/OrderShow';
+import OrderHistory from './orders/OrderHistory';
 import Address from './address/AddressCreate';
 import AddressEdit from './address/AddressEdit';
-import history from '../history';
-import AddressList from '../components/address/AddressList';
-import OrderHistory from '../components/orders/OrderHistory';
+import AddressList from './address/AddressList';
 import ShopCartList from './shopcart/ShopCartList';
 import Loader from './Loader';
-import Stripe from '../components/payment/Stripe';
+import Stripe from './payment/Stripe';
 import ModalError from './ModalError';
+import history from '../history';
 
 const App = () => {
   const dispatch = useDispatch();

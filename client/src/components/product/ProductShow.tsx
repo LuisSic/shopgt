@@ -3,7 +3,6 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { ResponseDataProduct } from './types';
-
 import { thunkAddItem } from '../../store/actions/shopCart/thunk';
 import Select from './Select';
 import useRequest from '../../hooks/user-request';

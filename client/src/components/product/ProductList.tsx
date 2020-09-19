@@ -11,12 +11,11 @@ import {
   MDBCardImage,
   MDBCardText,
 } from 'mdbreact';
+import { ResponseDataProduct } from './types';
 import Card from '../Card';
 import Modal from '../Modal';
-import { ResponseDataProduct } from './types';
-
-import history from '../../history';
 import useRequest from '../../hooks/user-request';
+import history from '../../history';
 
 const ProductList = () => {
   const [isOpenModalDelete, setOpenModalDelete] = useState(false);

@@ -1,5 +1,6 @@
 import './ShopCartList.css';
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   MDBDataTable,
   MDBContainer,
@@ -10,7 +11,6 @@ import {
   MDBDropdownItem,
   MDBCardText,
 } from 'mdbreact';
-import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import {
   thunkDeleteItem,
@@ -18,10 +18,11 @@ import {
 } from '../../store/actions/shopCart/thunk';
 import { thunkCreateOrder } from '../../store/actions/orders/thunk';
 import { selectedAddress } from '../../store/actions/shopCart/actions';
-import Dropdown from './Dropdown';
-import history from '../../history';
-import Card from '../Card';
 import { Address } from '../../store/actions/address/types';
+import Dropdown from './Dropdown';
+import Card from '../Card';
+import history from '../../history';
+
 const columns = [
   {
     label: 'Product',

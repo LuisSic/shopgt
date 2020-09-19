@@ -1,10 +1,9 @@
 import React from 'react';
 import { MDBContainer } from 'mdbreact';
+import { RequestDataProduct, ResponseDataProduct } from './types';
+import useRequest from '../../hooks/user-request';
 import ProductForm from './ProductForm';
 import history from '../../history';
-import { RequestDataProduct } from './types';
-import useRequest from '../../hooks/user-request';
-import { ResponseDataProduct } from './types';
 
 const ProductCreate = () => {
   const onSuccess = () => history.push('/');

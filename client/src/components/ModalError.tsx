@@ -1,7 +1,7 @@
 import React from 'react';
-import { RootState } from '../store';
 import { MDBBtn } from 'mdbreact';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store';
 import { hideError } from '../store/actions/error/actions';
 import Modal from './Modal';
 

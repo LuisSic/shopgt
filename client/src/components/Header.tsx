@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store/index';
-import { thunkSignOut } from '../store/actions/user/thunk';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import {
@@ -22,6 +20,8 @@ import {
   FacebookLoginButton,
   GoogleLoginButton,
 } from 'react-social-login-buttons';
+import { RootState } from '../store/index';
+import { thunkSignOut } from '../store/actions/user/thunk';
 import { thunkFetchAddresses } from '../store/actions/address/thunk';
 
 const handleSignInFacebook = () => {

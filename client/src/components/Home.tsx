@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import {
   MDBContainer,
@@ -9,10 +10,9 @@ import {
   MDBCardText,
 } from 'mdbreact';
 import Card from './Card';
-import { Link } from 'react-router-dom';
+import Loader from './Loader';
 import { ResponseDataProduct } from './product/types';
 import useRequest from '../hooks/user-request';
-import Loader from './Loader';
 
 const cardTitle = (product: ResponseDataProduct) => {
   return (
