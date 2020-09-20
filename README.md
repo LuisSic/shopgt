@@ -7,7 +7,8 @@ This is an e-commerce web page where you can signin with your Facebook and Googl
 - Kubernetes https://kubernetes.io/es/
 - Docker
 - Nodejs + TypeScript
-- (ReactJs and Redux) => TypeScript + Hooks
+- ReactJs Hooks TypeScript
+- Redux Hooks TypeScript
 - Skaffold https://skaffold.dev/
 - Stripe https://stripe.com/
 - SendGrid https://sendgrid.com/
