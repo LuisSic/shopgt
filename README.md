@@ -32,6 +32,8 @@ Below is a diagram of the architecture
 - Patterns to create scalable microservices
 - Share reusable code between multiple Express servers using custom NPM packages
 - Write comprehensive tests to ensure each service works as designed
+- React Hooks and Redux Hooks
+- React and Redux with TypeScript
 
 ## Authors
 
