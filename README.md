@@ -13,6 +13,7 @@ This is an e-commerce web page where you can signin with your Facebook and Googl
 - SendGrid https://sendgrid.com/
 - S3 Aws
 - Nats Streaming https://docs.nats.io/nats-streaming-concepts/intro
+- PassportJs (http://www.passportjs.org/)
 - Jest and Supertest (Unit Testing)
 
 ### Architecture
