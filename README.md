@@ -38,7 +38,7 @@ Below is a diagram of the architecture
 
 ## Authors
 
-- **Luis Sic** - _TT_ - [Sluis](https://github.com/LuisSic)
+- **Luis Sic** - _TT_ - [Sluis](https://www.linkedin.com/in/luis-antonio-antonio-sic-868181116/)
 
 ## License
 
