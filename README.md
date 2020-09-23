@@ -24,6 +24,7 @@ The following architecture consisting some services and each service has its dat
 Below is a diagram of the architecture
 
 <img src="./resources/ShopGt.png" title="Architecture">
+[YouTubeVideo](https://www.youtube.com/watch?v=NzeSaKD9PxQ&feature=youtu.be)
 
 ## What I learned?
 
