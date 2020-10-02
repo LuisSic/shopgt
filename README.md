@@ -1,6 +1,7 @@
 # Shopgt Microservices
 
 This is an e-commerce web page where you can signin with your Facebook and Google account. You can buy your items with your Debit and Credit card.
+[YouTubeVideo](https://www.youtube.com/watch?v=NzeSaKD9PxQ&feature=youtu.be)
 
 ### What technologies I used?
 
@@ -24,7 +25,7 @@ The following architecture consisting some services and each service has its dat
 Below is a diagram of the architecture
 
 <img src="./resources/ShopGt.png" title="Architecture">
-[YouTubeVideo](https://www.youtube.com/watch?v=NzeSaKD9PxQ&feature=youtu.be)
+
 
 ## What I learned?
 
