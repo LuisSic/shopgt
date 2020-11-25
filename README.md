@@ -1,6 +1,7 @@
 # Shopgt Microservices
 
 This is an e-commerce web page where you can signin with your Facebook and Google account. You can buy your items with your Debit and Credit card.
+[YouTubeVideo](https://www.youtube.com/watch?v=NzeSaKD9PxQ&feature=youtu.be)
 
 ### What technologies I used?
 
@@ -16,6 +17,7 @@ This is an e-commerce web page where you can signin with your Facebook and Googl
 - Nats Streaming https://docs.nats.io/nats-streaming-concepts/intro
 - PassportJs (http://www.passportjs.org/)
 - Jest and Supertest (Unit Testing)
+- MongoDB
 
 ### Architecture
 
@@ -24,6 +26,7 @@ The following architecture consisting some services and each service has its dat
 Below is a diagram of the architecture
 
 <img src="./resources/ShopGt.png" title="Architecture">
+
 
 ## What I learned?
 
@@ -38,7 +41,7 @@ Below is a diagram of the architecture
 
 ## Authors
 
-- **Luis Sic** - _TT_ - [Sluis](https://github.com/LuisSic)
+- **Luis Sic** - _TT_ - [Linkedin](https://www.linkedin.com/in/luis-antonio-antonio-sic-868181116/)
 
 ## License
 
