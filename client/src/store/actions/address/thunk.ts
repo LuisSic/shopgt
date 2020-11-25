@@ -32,6 +32,7 @@ export const thunkCreateAddress = (address: AddressRequest): AppThunk => async (
     dispatch(hideLoader());
     history.push('/address/list');
   } catch (err) {
+    console.log(err);
     dispatch(hideLoader());
     if (err && err.response) {
       dispatch(
